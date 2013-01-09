@@ -11,12 +11,14 @@ namespace dmg.Domain
         public int XPos { get; set; }
         public int YPos { get; set; }
         public ConsoleColor Color { get; set; }
+        public Char Char { get; set; }
 
         public Dude(int x, int y)
         {
             XPos = x;
             YPos = y;
             Color = ConsoleColor.Red;
+            Char = '@';
         }
     }
 }

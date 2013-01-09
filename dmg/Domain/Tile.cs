@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace dmg.Domain
 {
-    class Tile
+    public class Tile
     {
         public char Char { get; set; }
     }

@@ -9,18 +9,19 @@ namespace dmg
 {
     class Program
     {
-        private const int CONSOLE_WIDTH = 80;
-        private const int CONSOLE_HEIGHT = 25;
+        private const int GRID_WIDTH = 80;
+        private const int GRID_HEIGHT = 24;
 
         static void Main(string[] args)
         {
-            ScreenGrid screenGrid = new ScreenGrid(CONSOLE_WIDTH, CONSOLE_HEIGHT);
+            ScreenGrid screenGrid = new ScreenGrid(GRID_WIDTH, GRID_HEIGHT);
 
-            for(int i = 0; i < CONSOLE_WIDTH; i++)
+            for(int w = 0; w < GRID_WIDTH; w++)
             {
-                for (int j = 0; j < CONSOLE_HEIGHT; j++)
+                for (int h = 0; h < GRID_HEIGHT; h++)
                 {
-
+                    Console.SetCursorPosition(w, h);
+                    Console.Write(screenGrid.Grid[w, h].Char);
                 }
             }
         }

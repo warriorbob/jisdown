@@ -9,16 +9,19 @@ namespace dmg.Domain
     /// <summary>
     /// Represents a grid of tiles
     /// </summary>
-    class ScreenGrid
+    public class ScreenGrid
     {
-        public List<Tile>[,] Grid { get; set; }
+        public Tile[,] Grid;
 
         public ScreenGrid(int width, int height)
         {
-            Grid = new List<Tile>[width, height];
-            foreach (List<Tile> tileList in Grid)
+            Grid = new Tile[width, height];
+            for (int w = 0; w < width; w++)
             {
-                tileList.Add(new Tile { Char = '.' });
+                for (int h = 0; h < height; h++)
+                {
+                    Grid[w, h] = new Tile {Char = '.'};
+                }
             }
         }
     }

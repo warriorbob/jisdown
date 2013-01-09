@@ -13,6 +13,11 @@ namespace dmg.Domain
     {
         public Tile[,] Grid;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="width">Width of the grid</param>
+        /// <param name="height">Height of the grid</param>
         public ScreenGrid(int width, int height)
         {
             Grid = new Tile[width, height];
@@ -20,7 +25,7 @@ namespace dmg.Domain
             {
                 for (int h = 0; h < height; h++)
                 {
-                    Grid[w, h] = new Tile {Char = '.'};
+                    Grid[w, h] = new Tile {Char = '.', BackgroundColor = ConsoleColor.Black, ForegroundColor = ConsoleColor.Gray};
                 }
             }
         }

@@ -17,6 +17,7 @@ namespace dmg
             ScreenGrid screenGrid = new ScreenGrid(GRID_WIDTH, GRID_HEIGHT);
             Dude dude = new Dude(40, 12);
 
+            ConsoleKeyInfo keyInfo = new ConsoleKeyInfo();
             bool running = true;
 
             while (running == true)
@@ -35,7 +36,15 @@ namespace dmg
 
                 DrawDude(dude, screenGrid);
 
-                Console.ReadKey();
+                keyInfo = Console.ReadKey();
+                //Control-shift-Q to quit
+                if(keyInfo.Key == ConsoleKey.Q 
+                    && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Shift)
+                    && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Control))
+                {
+                    running = false;
+                }
+                
             }
 
             //"Press any key to continue" when we're done

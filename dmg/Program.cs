@@ -17,7 +17,7 @@ namespace dmg
         static void Main(string[] args)
         {
             ScreenGrid screenGrid = new ScreenGrid(GRID_WIDTH, GRID_HEIGHT);
-            Dude dude = new Dude(40, 12);
+            Dude dude = new Dude(78, 0);
 
             ConsoleKeyInfo keyInfo = new ConsoleKeyInfo();
             bool running = true;
@@ -88,23 +88,41 @@ namespace dmg
         private static void UpdateState(ConsoleKeyInfo keyInfo, ref Dude dude)
         {
             //Movement
-            if(keyInfo.Key == ConsoleKey.UpArrow)
+            if(keyInfo.Key == ConsoleKey.W)
             {
                 dude.YPos--;
             }
-            else if (keyInfo.Key == ConsoleKey.DownArrow)
+            else if (keyInfo.Key == ConsoleKey.S)
             {
                 dude.YPos++;
             }
-            else if (keyInfo.Key == ConsoleKey.LeftArrow)
+            else if (keyInfo.Key == ConsoleKey.A)
             {
                 dude.XPos--;
             }
-            else if (keyInfo.Key == ConsoleKey.RightArrow)
+            else if (keyInfo.Key == ConsoleKey.D)
             {
                 dude.XPos++;
             }
 
+            //Constrain dimensions
+            if (dude.XPos < 0)
+            {
+                dude.XPos = 0;
+            }
+            else if (dude.XPos > GRID_WIDTH - 1)
+            {
+                dude.XPos = GRID_WIDTH - 1;
+            }
+
+            if (dude.YPos < 0)
+            {
+                dude.YPos = 0;
+            }
+            else if (dude.YPos > GRID_HEIGHT - 1)
+            {
+                dude.YPos = GRID_HEIGHT - 1;
+            }
         }
     }
 }

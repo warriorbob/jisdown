@@ -17,7 +17,7 @@ namespace dmg.Domain
         {
             XPos = x;
             YPos = y;
-            Color = ConsoleColor.Red;
+            Color = ConsoleColor.White;
             Char = '@';
         }
     }

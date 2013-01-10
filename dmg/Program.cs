@@ -50,6 +50,7 @@ namespace dmg
             Console.BackgroundColor = screenGrid.Grid[dude.XPos, dude.YPos].BackgroundColor;
             Console.ForegroundColor = dude.Color;
             Console.Write(dude.Char);
+            Console.SetCursorPosition(0, 24);
         }
     }
 }

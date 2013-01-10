@@ -26,6 +26,7 @@ namespace dmg
             {
                 Draw(screenGrid, dude);
                 HandleInput(ref keyInfo, ref running);
+                UpdateState(keyInfo, ref dude);
             }
 
             //"Press any key to continue" when we're done
@@ -33,8 +34,13 @@ namespace dmg
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.BackgroundColor = ConsoleColor.Black;
         }
-        
+                
         //DRAWING ---------------------------------------------------------------------------------
+        /// <summary>
+        /// Draw all the things
+        /// </summary>
+        /// <param name="screenGrid"></param>
+        /// <param name="dude"></param>
         private static void Draw(ScreenGrid screenGrid, Dude dude)
         {
             DrawMap(screenGrid);
@@ -76,6 +82,29 @@ namespace dmg
             {
                 running = false;
             }
+        }
+
+        //UPDATE-----------------------------------------------------------------------------------
+        private static void UpdateState(ConsoleKeyInfo keyInfo, ref Dude dude)
+        {
+            //Movement
+            if(keyInfo.Key == ConsoleKey.UpArrow)
+            {
+                dude.YPos--;
+            }
+            else if (keyInfo.Key == ConsoleKey.DownArrow)
+            {
+                dude.YPos++;
+            }
+            else if (keyInfo.Key == ConsoleKey.LeftArrow)
+            {
+                dude.XPos--;
+            }
+            else if (keyInfo.Key == ConsoleKey.RightArrow)
+            {
+                dude.XPos++;
+            }
+
         }
     }
 }

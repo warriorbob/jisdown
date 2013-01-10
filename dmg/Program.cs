@@ -17,7 +17,9 @@ namespace dmg
             ScreenGrid screenGrid = new ScreenGrid(GRID_WIDTH, GRID_HEIGHT);
             Dude dude = new Dude(40, 12);
 
-            while (true)
+            bool running = true;
+
+            while (running == true)
             {
                 //Draw map
                 for (int w = 0; w < GRID_WIDTH; w++)

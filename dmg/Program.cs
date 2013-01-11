@@ -17,14 +17,20 @@ namespace dmg
         static void Main(string[] args)
         {
             ScreenGrid screenGrid = new ScreenGrid(GRID_WIDTH, GRID_HEIGHT);
+            
+            //PREP SOME STUFF
             Dude dude = new Dude(78, 0);
+            List<Baddie> baddies = new List<Baddie>();
+            baddies.Add(new Baddie(20, 15));
+            baddies.Add(new Baddie(22, 15));
+            baddies.Add(new Baddie(25, 15));
 
             ConsoleKeyInfo keyInfo = new ConsoleKeyInfo();
             bool running = true;
 
             while (running == true)
             {
-                Draw(screenGrid, dude);
+                Draw(screenGrid, dude, baddies);
                 HandleInput(ref keyInfo, ref running);
                 UpdateState(keyInfo, ref dude);
             }
@@ -41,9 +47,10 @@ namespace dmg
         /// </summary>
         /// <param name="screenGrid"></param>
         /// <param name="dude"></param>
-        private static void Draw(ScreenGrid screenGrid, Dude dude)
+        private static void Draw(ScreenGrid screenGrid, Dude dude, List<Baddie> baddies)
         {
             DrawMap(screenGrid);
+            DrawBaddies(screenGrid, baddies);
             DrawDude(dude, screenGrid);
         }
 
@@ -59,6 +66,17 @@ namespace dmg
                     Console.ForegroundColor = screenGrid.Grid[w, h].ForegroundColor;
                     Console.Write(screenGrid.Grid[w, h].Char);
                 }
+            }
+        }
+
+        public static void DrawBaddies(ScreenGrid screenGrid, List<Baddie> baddies)
+        {
+            foreach (Baddie baddie in baddies)
+            {
+                Console.SetCursorPosition(baddie.XPos, baddie.YPos);
+                Console.BackgroundColor = screenGrid.Grid[baddie.XPos, baddie.YPos].BackgroundColor;
+                Console.ForegroundColor = baddie.Color;
+                Console.Write(baddie.Char);
             }
         }
 

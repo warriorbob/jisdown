@@ -32,7 +32,7 @@ namespace dmg
             {
                 Draw(screenGrid, dude, baddies);
                 HandleInput(ref keyInfo, ref running);
-                UpdateState(keyInfo, ref dude);
+                UpdateState(keyInfo, ref dude, ref baddies);
             }
 
             //"Press any key to continue" when we're done
@@ -103,9 +103,19 @@ namespace dmg
         }
 
         //UPDATE-----------------------------------------------------------------------------------
-        private static void UpdateState(ConsoleKeyInfo keyInfo, ref Dude dude)
+        private static void UpdateState(ConsoleKeyInfo keyInfo, ref Dude dude, ref List<Baddie> baddies)
         {
             MoveDude(keyInfo, ref dude);
+            MoveBaddies(ref dude, ref baddies);
+        }
+
+        private static void MoveBaddies(ref Dude dude, ref List<Baddie> baddies)
+        {
+            foreach (Baddie baddie in baddies)
+            {
+                //TODO: Cast a line to the dude, and move one space towards him (assuming nothing's in the way)
+
+            }
         }
 
         private static void MoveDude(ConsoleKeyInfo keyInfo, ref Dude dude)

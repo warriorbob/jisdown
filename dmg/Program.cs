@@ -105,8 +105,13 @@ namespace dmg
         //UPDATE-----------------------------------------------------------------------------------
         private static void UpdateState(ConsoleKeyInfo keyInfo, ref Dude dude)
         {
+            MoveDude(keyInfo, ref dude);
+        }
+
+        private static void MoveDude(ConsoleKeyInfo keyInfo, ref Dude dude)
+        {
             //Movement
-            if(keyInfo.Key == ConsoleKey.W)
+            if (keyInfo.Key == ConsoleKey.W)
             {
                 dude.YPos--;
             }

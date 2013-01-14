@@ -12,6 +12,9 @@ namespace dmg
     /// </summary>
     class Encapsulator
     {
+        private const int CONSOLE_WIDTH = 80;
+        private const int CONSOLE_HEIGHT = 25;
+
         private int GRID_WIDTH = 80;
         private int GRID_HEIGHT = 24;
         
@@ -20,6 +23,8 @@ namespace dmg
         private ScreenGrid screenGrid;
 
         private ConsoleKeyInfo keyInfo;
+        private ConsoleChar[,] newScreen;
+        private ConsoleChar[,] previousScreen;
 
         public Encapsulator(int width, int height)
         {
@@ -28,7 +33,25 @@ namespace dmg
             GRID_HEIGHT = height;
             screenGrid = new ScreenGrid(GRID_WIDTH, GRID_HEIGHT);
             keyInfo = new ConsoleKeyInfo();
-            
+            newScreen = new ConsoleChar[CONSOLE_WIDTH, CONSOLE_HEIGHT];
+            previousScreen = new ConsoleChar[CONSOLE_WIDTH, CONSOLE_HEIGHT];
+
+            //Initialize screenbuffers
+            for (int w = 0; w < CONSOLE_WIDTH; w++)
+            {
+                for (int h = 0; h < CONSOLE_HEIGHT-1; h++)
+                {
+                    newScreen[w, h] = new ConsoleChar();
+                    newScreen[w, h].Char = ' ';
+                    newScreen[w, h].BackgroundColor = ConsoleColor.Black;
+                    newScreen[w, h].ForegroundColor = ConsoleColor.White;
+                    previousScreen[w, h] = new ConsoleChar();
+                    previousScreen[w, h].Char = ' ';
+                    previousScreen[w, h].BackgroundColor = ConsoleColor.Black;
+                    previousScreen[w, h].ForegroundColor = ConsoleColor.White;
+                }
+            }
+
             //Entities
             dude = new Dude(78, 0);
             baddies = new List<Baddie>();
@@ -65,6 +88,21 @@ namespace dmg
             DrawMap();
             DrawBaddies();
             DrawDude();
+            DrawFromBuffers(newScreen, previousScreen);
+        }
+
+        private void DrawFromBuffers(ConsoleChar[,] newScreen, ConsoleChar[,] previousScreen)
+        {
+            for (int w = 0; w < CONSOLE_WIDTH; w++)
+            {
+                for (int h = 0; h < CONSOLE_HEIGHT-1; h++)
+                {
+                    Console.SetCursorPosition(w, h);
+                    Console.BackgroundColor = newScreen[w, h].BackgroundColor;
+                    Console.ForegroundColor = newScreen[w, h].ForegroundColor;
+                    Console.Write(newScreen[w, h].Char);
+                }
+            }
         }
 
         private void DrawMap()
@@ -74,10 +112,9 @@ namespace dmg
             {
                 for (int h = 0; h < GRID_HEIGHT; h++)
                 {
-                    Console.SetCursorPosition(w, h);
-                    Console.BackgroundColor = screenGrid.Grid[w, h].BackgroundColor;
-                    Console.ForegroundColor = screenGrid.Grid[w, h].ForegroundColor;
-                    Console.Write(screenGrid.Grid[w, h].Char);
+                    newScreen[w, h].BackgroundColor = screenGrid.Grid[w, h].BackgroundColor;
+                    newScreen[w, h].ForegroundColor = screenGrid.Grid[w, h].ForegroundColor;
+                    newScreen[w, h].Char = screenGrid.Grid[w, h].Char;
                 }
             }
         }
@@ -86,20 +123,17 @@ namespace dmg
         {
             foreach (Baddie baddie in baddies)
             {
-                Console.SetCursorPosition(baddie.XPos, baddie.YPos);
-                Console.BackgroundColor = screenGrid.Grid[baddie.XPos, baddie.YPos].BackgroundColor;
-                Console.ForegroundColor = baddie.Color;
-                Console.Write(baddie.Char);
+                newScreen[baddie.XPos, baddie.YPos].BackgroundColor = screenGrid.Grid[baddie.XPos, baddie.YPos].BackgroundColor;
+                newScreen[baddie.XPos, baddie.YPos].ForegroundColor = baddie.Color;
+                newScreen[baddie.XPos, baddie.YPos].Char = baddie.Char;
             }
         }
 
         private void DrawDude()
         {
-            Console.SetCursorPosition(dude.XPos, dude.YPos);
-            Console.BackgroundColor = screenGrid.Grid[dude.XPos, dude.YPos].BackgroundColor;
-            Console.ForegroundColor = dude.Color;
-            Console.Write(dude.Char);
-            Console.SetCursorPosition(0, 24);
+            newScreen[dude.XPos, dude.YPos].BackgroundColor = screenGrid.Grid[dude.XPos, dude.YPos].BackgroundColor;
+            newScreen[dude.XPos, dude.YPos].ForegroundColor = dude.Color;
+            newScreen[dude.XPos, dude.YPos].Char = dude.Char;
         }
 
         //INPUT------------------------------------------------------------------------------------

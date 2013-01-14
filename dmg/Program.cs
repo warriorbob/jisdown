@@ -9,9 +9,12 @@ namespace dmg
 {
     class Program
     {
+        private const int GRID_WIDTH = 80;
+        private const int GRID_HEIGHT = 24;
+
         static void Main(string[] args)
         {
-            Encapsulator enc = new Encapsulator();
+            Encapsulator enc = new Encapsulator(GRID_WIDTH, GRID_HEIGHT);
             enc.Go();
         }
     }

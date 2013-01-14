@@ -12,14 +12,15 @@ namespace dmg
     /// </summary>
     class Encapsulator
     {
-        private const int GRID_WIDTH = 80;
-        private const int GRID_HEIGHT = 24;
+        private int GRID_WIDTH = 80;
+        private int GRID_HEIGHT = 24;
 
         private ConsoleKeyInfo keyInfo;
 
-        public Encapsulator()
+        public Encapsulator(int width, int height)
         {
-
+            GRID_WIDTH = width;
+            GRID_HEIGHT = height;
         }
 
         public void Go()
@@ -55,14 +56,14 @@ namespace dmg
         /// </summary>
         /// <param name="screenGrid"></param>
         /// <param name="dude"></param>
-        private static void Draw(ScreenGrid screenGrid, Dude dude, List<Baddie> baddies)
+        private void Draw(ScreenGrid screenGrid, Dude dude, List<Baddie> baddies)
         {
             DrawMap(screenGrid);
             DrawBaddies(screenGrid, baddies);
             DrawDude(dude, screenGrid);
         }
 
-        private static void DrawMap(ScreenGrid screenGrid)
+        private void DrawMap(ScreenGrid screenGrid)
         {
             //Draw map
             for (int w = 0; w < GRID_WIDTH; w++)
@@ -77,7 +78,7 @@ namespace dmg
             }
         }
 
-        private static void DrawBaddies(ScreenGrid screenGrid, List<Baddie> baddies)
+        private void DrawBaddies(ScreenGrid screenGrid, List<Baddie> baddies)
         {
             foreach (Baddie baddie in baddies)
             {
@@ -88,7 +89,7 @@ namespace dmg
             }
         }
 
-        private static void DrawDude(Dude dude, ScreenGrid screenGrid)
+        private void DrawDude(Dude dude, ScreenGrid screenGrid)
         {
             Console.SetCursorPosition(dude.XPos, dude.YPos);
             Console.BackgroundColor = screenGrid.Grid[dude.XPos, dude.YPos].BackgroundColor;
@@ -98,7 +99,7 @@ namespace dmg
         }
 
         //INPUT------------------------------------------------------------------------------------
-        private static void HandleInput(ref ConsoleKeyInfo keyInfo, ref bool running)
+        private void HandleInput(ref ConsoleKeyInfo keyInfo, ref bool running)
         {
             keyInfo = Console.ReadKey();
             //Control-shift-Q to quit
@@ -111,13 +112,13 @@ namespace dmg
         }
 
         //UPDATE-----------------------------------------------------------------------------------
-        private static void UpdateState(ConsoleKeyInfo keyInfo, ref Dude dude, ref List<Baddie> baddies)
+        private void UpdateState(ConsoleKeyInfo keyInfo, ref Dude dude, ref List<Baddie> baddies)
         {
             MoveDude(keyInfo, ref dude);
             MoveBaddies(ref dude, ref baddies);
         }
 
-        private static void MoveBaddies(ref Dude dude, ref List<Baddie> baddies)
+        private void MoveBaddies(ref Dude dude, ref List<Baddie> baddies)
         {
             foreach (Baddie baddie in baddies)
             {
@@ -126,7 +127,7 @@ namespace dmg
             }
         }
 
-        private static void MoveDude(ConsoleKeyInfo keyInfo, ref Dude dude)
+        private void MoveDude(ConsoleKeyInfo keyInfo, ref Dude dude)
         {
             //Movement
             if (keyInfo.Key == ConsoleKey.W)

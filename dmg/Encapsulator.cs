@@ -14,34 +14,38 @@ namespace dmg
     {
         private int GRID_WIDTH = 80;
         private int GRID_HEIGHT = 24;
+        
+        private Dude dude;
+        List<Baddie> baddies;
+        ScreenGrid screenGrid;
 
         private ConsoleKeyInfo keyInfo;
 
         public Encapsulator(int width, int height)
         {
+            //Infrastructure
             GRID_WIDTH = width;
             GRID_HEIGHT = height;
+            screenGrid = new ScreenGrid(GRID_WIDTH, GRID_HEIGHT);
+            keyInfo = new ConsoleKeyInfo();
+            
+            //Entities
+            dude = new Dude(78, 0);
+            baddies = new List<Baddie>();
+            baddies.Add(new Baddie(20, 15));
+            baddies.Add(new Baddie(22, 15));
+            baddies.Add(new Baddie(25, 15));
         }
 
         public void Go()
         {
-            ScreenGrid screenGrid = new ScreenGrid(GRID_WIDTH, GRID_HEIGHT);
-
-            //PREP SOME STUFF
-            Dude dude = new Dude(78, 0);
-            List<Baddie> baddies = new List<Baddie>();
-            baddies.Add(new Baddie(20, 15));
-            baddies.Add(new Baddie(22, 15));
-            baddies.Add(new Baddie(25, 15));
-
-            ConsoleKeyInfo keyInfo = new ConsoleKeyInfo();
             bool running = true;
 
             while (running == true)
             {
-                Draw(screenGrid, dude, baddies);
-                HandleInput(ref keyInfo, ref running);
-                UpdateState(keyInfo, ref dude, ref baddies);
+                Draw();
+                HandleInput(ref running);
+                UpdateState();
             }
 
             //"Press any key to continue" when we're done
@@ -56,14 +60,14 @@ namespace dmg
         /// </summary>
         /// <param name="screenGrid"></param>
         /// <param name="dude"></param>
-        private void Draw(ScreenGrid screenGrid, Dude dude, List<Baddie> baddies)
+        private void Draw()
         {
-            DrawMap(screenGrid);
-            DrawBaddies(screenGrid, baddies);
-            DrawDude(dude, screenGrid);
+            DrawMap();
+            DrawBaddies();
+            DrawDude();
         }
 
-        private void DrawMap(ScreenGrid screenGrid)
+        private void DrawMap()
         {
             //Draw map
             for (int w = 0; w < GRID_WIDTH; w++)
@@ -78,7 +82,7 @@ namespace dmg
             }
         }
 
-        private void DrawBaddies(ScreenGrid screenGrid, List<Baddie> baddies)
+        private void DrawBaddies()
         {
             foreach (Baddie baddie in baddies)
             {
@@ -89,7 +93,7 @@ namespace dmg
             }
         }
 
-        private void DrawDude(Dude dude, ScreenGrid screenGrid)
+        private void DrawDude()
         {
             Console.SetCursorPosition(dude.XPos, dude.YPos);
             Console.BackgroundColor = screenGrid.Grid[dude.XPos, dude.YPos].BackgroundColor;
@@ -99,7 +103,7 @@ namespace dmg
         }
 
         //INPUT------------------------------------------------------------------------------------
-        private void HandleInput(ref ConsoleKeyInfo keyInfo, ref bool running)
+        private void HandleInput(ref bool running)
         {
             keyInfo = Console.ReadKey();
             //Control-shift-Q to quit
@@ -112,13 +116,13 @@ namespace dmg
         }
 
         //UPDATE-----------------------------------------------------------------------------------
-        private void UpdateState(ConsoleKeyInfo keyInfo, ref Dude dude, ref List<Baddie> baddies)
+        private void UpdateState()
         {
-            MoveDude(keyInfo, ref dude);
-            MoveBaddies(ref dude, ref baddies);
+            MoveDude();
+            MoveBaddies();
         }
 
-        private void MoveBaddies(ref Dude dude, ref List<Baddie> baddies)
+        private void MoveBaddies()
         {
             foreach (Baddie baddie in baddies)
             {
@@ -127,7 +131,7 @@ namespace dmg
             }
         }
 
-        private void MoveDude(ConsoleKeyInfo keyInfo, ref Dude dude)
+        private void MoveDude()
         {
             //Movement
             if (keyInfo.Key == ConsoleKey.W)

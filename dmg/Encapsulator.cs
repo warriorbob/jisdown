@@ -16,8 +16,8 @@ namespace dmg
         private int GRID_HEIGHT = 24;
         
         private Dude dude;
-        List<Baddie> baddies;
-        ScreenGrid screenGrid;
+        private List<Baddie> baddies;
+        private ScreenGrid screenGrid;
 
         private ConsoleKeyInfo keyInfo;
 

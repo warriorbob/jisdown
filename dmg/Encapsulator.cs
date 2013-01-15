@@ -129,6 +129,7 @@ namespace dmg
                 }
             }
 
+            //Draw on only the updated locations
             foreach (ConsoleChar cc in changes)
             {
                 Console.SetCursorPosition(cc.XPos, cc.YPos);

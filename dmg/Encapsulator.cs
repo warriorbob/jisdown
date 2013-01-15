@@ -203,12 +203,33 @@ namespace dmg
         {
             int deltaX;
             int deltaY;
+            double angle;
+            const double DIAGONAL_THRESHOLD = Math.PI / 8;
+
             foreach (Baddie baddie in baddies)
             {
                 deltaX = dude.XPos - baddie.XPos;
                 deltaY = dude.YPos - baddie.YPos;
-                
-                //TODO: Cast a line to the dude, and move one space towards him (assuming nothing's in the way)
+
+                angle = Math.Atan(Math.Abs((double)deltaY) / Math.Abs((double)deltaX));
+
+                if (angle < DIAGONAL_THRESHOLD || Math.PI/2 - angle < DIAGONAL_THRESHOLD)
+                {
+                    //Move horizontally
+                    if (Math.Abs(deltaX) > Math.Abs(deltaY))
+                    {
+                        baddie.XPos += Math.Sign(deltaX);
+                    }
+                    else if (Math.Abs(deltaY) > Math.Abs(deltaX))
+                    {
+                        baddie.YPos += Math.Sign(deltaY);
+                    }
+                }
+                else
+                {
+                    baddie.XPos += Math.Sign(deltaX);
+                    baddie.YPos += Math.Sign(deltaY);
+                }
             }
         }
 

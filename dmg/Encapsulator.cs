@@ -115,7 +115,7 @@ namespace dmg
             {
                 for (int h = 0; h < CONSOLE_HEIGHT - 1; h++)
                 {
-                    if (newScreen[w, h].Char != previousScreen[w, h].Char)
+                    if (!newScreen[w, h].Matches(previousScreen[w, h]))
                     {
                         changes.Add(new ConsoleChar
                         {
@@ -201,8 +201,13 @@ namespace dmg
 
         private void MoveBaddies()
         {
+            int deltaX;
+            int deltaY;
             foreach (Baddie baddie in baddies)
             {
+                deltaX = dude.XPos - baddie.XPos;
+                deltaY = dude.YPos - baddie.YPos;
+                
                 //TODO: Cast a line to the dude, and move one space towards him (assuming nothing's in the way)
             }
         }
@@ -236,7 +241,6 @@ namespace dmg
             {
                 dude.XPos = GRID_WIDTH - 1;
             }
-
             if (dude.YPos < 0)
             {
                 dude.YPos = 0;

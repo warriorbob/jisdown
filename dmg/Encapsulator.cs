@@ -23,8 +23,8 @@ namespace dmg
         private ScreenGrid screenGrid;
 
         private ConsoleKeyInfo keyInfo;
-        private ConsoleChar[,] newScreen;
-        private ConsoleChar[,] previousScreen;
+        public ConsoleChar[,] newScreen;
+        public ConsoleChar[,] previousScreen;
 
         public Encapsulator(int width, int height)
         {
@@ -53,7 +53,7 @@ namespace dmg
             }
 
             //Entities
-            dude = new Dude(78, 0);
+            dude = new Dude(0, 0);
             baddies = new List<Baddie>();
             baddies.Add(new Baddie(20, 15));
             baddies.Add(new Baddie(22, 15));
@@ -83,29 +83,82 @@ namespace dmg
         /// </summary>
         /// <param name="screenGrid"></param>
         /// <param name="dude"></param>
-        private void Draw()
+        public void Draw()
         {
-            DrawMap();
-            DrawBaddies();
-            DrawDude();
-            DrawFromBuffers(newScreen, previousScreen);
-        }
+            BufferMap();
+            BufferBaddies();
+            BufferDude();
 
-        private void DrawFromBuffers(ConsoleChar[,] newScreen, ConsoleChar[,] previousScreen)
-        {
+            DrawFromBuffers(newScreen, previousScreen);
+            
+            //Reinitialize newScreen to black spaces
             for (int w = 0; w < CONSOLE_WIDTH; w++)
             {
-                for (int h = 0; h < CONSOLE_HEIGHT-1; h++)
+                for (int h = 0; h < CONSOLE_HEIGHT - 1; h++)
                 {
-                    Console.SetCursorPosition(w, h);
-                    Console.BackgroundColor = newScreen[w, h].BackgroundColor;
-                    Console.ForegroundColor = newScreen[w, h].ForegroundColor;
-                    Console.Write(newScreen[w, h].Char);
+                    newScreen[w, h] = new ConsoleChar();
+                    newScreen[w, h].Char = ' ';
+                    newScreen[w, h].BackgroundColor = ConsoleColor.Black;
+                    newScreen[w, h].ForegroundColor = ConsoleColor.White;
                 }
             }
+
+            //Reposition cursor
+            Console.SetCursorPosition(0, CONSOLE_HEIGHT-1);
         }
 
-        private void DrawMap()
+        public void DrawFromBuffers(ConsoleChar[,] newScreen, ConsoleChar[,] previousScreen)
+        {
+           List<ConsoleChar> changes = new List<ConsoleChar>();
+
+            for (int w = 0; w < CONSOLE_WIDTH; w++)
+            {
+                for (int h = 0; h < CONSOLE_HEIGHT - 1; h++)
+                {
+                    if (newScreen[w, h].Char != previousScreen[w, h].Char)
+                    {
+                        changes.Add(new ConsoleChar
+                        {
+                            Char = newScreen[w, h].Char,
+                            BackgroundColor = newScreen[w, h].BackgroundColor,
+                            ForegroundColor = newScreen[w, h].ForegroundColor,
+                            XPos = w,
+                            YPos = h
+                        });
+                    }
+                }
+            }
+
+            foreach (ConsoleChar cc in changes)
+            {
+                Console.SetCursorPosition(cc.XPos, cc.YPos);
+                Console.BackgroundColor = cc.BackgroundColor;
+                Console.ForegroundColor = cc.ForegroundColor;
+                Console.Write(cc.Char);
+            }
+
+            //Copy newScreen to previousScreen
+            for (int w = 0; w < CONSOLE_WIDTH; w++)
+            {
+                for (int h = 0; h < CONSOLE_HEIGHT - 1; h++)
+                {
+                    this.previousScreen[w, h] = newScreen[w, h];
+                }
+            }
+
+            //for (int w = 0; w < CONSOLE_WIDTH; w++)
+            //{
+            //    for (int h = 0; h < CONSOLE_HEIGHT - 1; h++)
+            //    {
+            //        Console.SetCursorPosition(w, h);
+            //        Console.BackgroundColor = newScreen[w, h].BackgroundColor;
+            //        Console.ForegroundColor = newScreen[w, h].ForegroundColor;
+            //        Console.Write(newScreen[w, h].Char);
+            //    }
+            //}
+        }
+
+        private void BufferMap()
         {
             //Draw map
             for (int w = 0; w < GRID_WIDTH; w++)
@@ -119,7 +172,7 @@ namespace dmg
             }
         }
 
-        private void DrawBaddies()
+        private void BufferBaddies()
         {
             foreach (Baddie baddie in baddies)
             {
@@ -129,7 +182,7 @@ namespace dmg
             }
         }
 
-        private void DrawDude()
+        public void BufferDude()
         {
             newScreen[dude.XPos, dude.YPos].BackgroundColor = screenGrid.Grid[dude.XPos, dude.YPos].BackgroundColor;
             newScreen[dude.XPos, dude.YPos].ForegroundColor = dude.Color;
@@ -161,7 +214,6 @@ namespace dmg
             foreach (Baddie baddie in baddies)
             {
                 //TODO: Cast a line to the dude, and move one space towards him (assuming nothing's in the way)
-
             }
         }
 

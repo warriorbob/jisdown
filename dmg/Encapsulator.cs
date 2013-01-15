@@ -215,7 +215,7 @@ namespace dmg
 
                 if (angle < DIAGONAL_THRESHOLD || Math.PI/2 - angle < DIAGONAL_THRESHOLD)
                 {
-                    //Move horizontally
+                    //Move horizontally or vertically
                     if (Math.Abs(deltaX) > Math.Abs(deltaY))
                     {
                         baddie.XPos += Math.Sign(deltaX);
@@ -224,9 +224,15 @@ namespace dmg
                     {
                         baddie.YPos += Math.Sign(deltaY);
                     }
+                    else
+                    {
+                        //Shouldn't be possible
+                        throw new Exception("Horizontal movement in the diagonal threshold shouldn't be possible");
+                    }
                 }
                 else
                 {
+                    //Move diagonally
                     baddie.XPos += Math.Sign(deltaX);
                     baddie.YPos += Math.Sign(deltaY);
                 }

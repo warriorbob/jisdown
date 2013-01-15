@@ -145,17 +145,6 @@ namespace dmg
                     this.previousScreen[w, h] = newScreen[w, h];
                 }
             }
-
-            //for (int w = 0; w < CONSOLE_WIDTH; w++)
-            //{
-            //    for (int h = 0; h < CONSOLE_HEIGHT - 1; h++)
-            //    {
-            //        Console.SetCursorPosition(w, h);
-            //        Console.BackgroundColor = newScreen[w, h].BackgroundColor;
-            //        Console.ForegroundColor = newScreen[w, h].ForegroundColor;
-            //        Console.Write(newScreen[w, h].Char);
-            //    }
-            //}
         }
 
         private void BufferMap()

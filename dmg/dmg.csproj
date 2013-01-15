@@ -44,7 +44,7 @@
     <Compile Include="ConsoleChar.cs" />
     <Compile Include="Domain\Dude.cs" />
     <Compile Include="Domain\Baddie.cs" />
-    <Compile Include="Domain\ScreenGrid.cs" />
+    <Compile Include="Domain\Map.cs" />
     <Compile Include="Domain\Tile.cs" />
     <Compile Include="Encapsulator.cs" />
     <Compile Include="Program.cs" />

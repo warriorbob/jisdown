@@ -20,7 +20,7 @@ namespace dmg
         
         private Dude dude;
         private List<Baddie> baddies;
-        private ScreenGrid screenGrid;
+        private Map screenGrid;
 
         private ConsoleKeyInfo keyInfo;
         public ConsoleChar[,] newScreen;
@@ -31,7 +31,7 @@ namespace dmg
             //Infrastructure
             GRID_WIDTH = width;
             GRID_HEIGHT = height;
-            screenGrid = new ScreenGrid(GRID_WIDTH, GRID_HEIGHT);
+            screenGrid = new Map(GRID_WIDTH, GRID_HEIGHT);
             keyInfo = new ConsoleKeyInfo();
             newScreen = new ConsoleChar[CONSOLE_WIDTH, CONSOLE_HEIGHT];
             previousScreen = new ConsoleChar[CONSOLE_WIDTH, CONSOLE_HEIGHT];

@@ -85,9 +85,9 @@ namespace dmg
         /// <param name="dude"></param>
         public void Draw()
         {
-            BufferMap();
-            BufferBaddies();
-            BufferDude();
+            BackbufferMap();
+            BackbufferBaddies();
+            BackbufferDude();
 
             DrawFromBuffers(newScreen, previousScreen);
             
@@ -147,7 +147,7 @@ namespace dmg
             }
         }
 
-        private void BufferMap()
+        private void BackbufferMap()
         {
             //Draw map
             for (int w = 0; w < GRID_WIDTH; w++)
@@ -161,7 +161,7 @@ namespace dmg
             }
         }
 
-        private void BufferBaddies()
+        private void BackbufferBaddies()
         {
             foreach (Baddie baddie in baddies)
             {
@@ -171,7 +171,7 @@ namespace dmg
             }
         }
 
-        public void BufferDude()
+        public void BackbufferDude()
         {
             newScreen[dude.XPos, dude.YPos].BackgroundColor = screenGrid.Grid[dude.XPos, dude.YPos].BackgroundColor;
             newScreen[dude.XPos, dude.YPos].ForegroundColor = dude.Color;

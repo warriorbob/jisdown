@@ -62,13 +62,16 @@ namespace dmg
 
         public void Go()
         {
+            Draw();
+
             bool running = true;
 
             while (running == true)
             {
-                Draw();
+
                 HandleInput(ref running);
-                UpdateState();
+                UpdateState(ref running);
+                Draw();
             }
 
             //"Press any key to continue" when we're done
@@ -86,9 +89,9 @@ namespace dmg
         public void Draw()
         {
             BackbufferMap();
-            BackbufferBaddies();
             BackbufferDude();
-
+            BackbufferBaddies();
+            
             DrawFromBuffers(newScreen, previousScreen);
             
             //Reinitialize newScreen to black spaces
@@ -193,10 +196,22 @@ namespace dmg
         }
 
         //UPDATE-----------------------------------------------------------------------------------
-        private void UpdateState()
+        private void UpdateState(ref bool running)
         {
             MoveDude();
             MoveBaddies();
+            EatBrains(ref running);
+        }
+
+        private void EatBrains(ref bool running)
+        {
+            foreach (Baddie baddie in baddies)
+            {
+                if (baddie.XPos == dude.XPos && baddie.YPos == dude.YPos)
+                {
+                    running = false;
+                }
+            }
         }
 
         private void MoveBaddies()

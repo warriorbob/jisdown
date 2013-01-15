@@ -12,6 +12,7 @@ namespace dmg.Domain
         public int YPos { get; set; }
         public ConsoleColor Color { get; set; }
         public Char Char { get; set; }
+        public bool IsAlive { get; set; }
 
         public Dude(int x, int y)
         {

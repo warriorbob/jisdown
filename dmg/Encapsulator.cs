@@ -53,7 +53,7 @@ namespace dmg
             }
 
             //Entities
-            dude = new Dude(0, 0);
+            dude = new Dude(22, 0);
             baddies = new List<Baddie>();
             baddies.Add(new Baddie(20, 15));
             baddies.Add(new Baddie(22, 15));
@@ -198,9 +198,89 @@ namespace dmg
         //UPDATE-----------------------------------------------------------------------------------
         private void UpdateState(ref bool running)
         {
+            Bang();
             MoveDude();
             MoveBaddies();
             EatBrains(ref running);
+        }
+
+        //BANG
+        private void Bang()
+        {
+            int xDir = 0;
+            int yDir = 0;
+
+            //Set shot direction
+            if (keyInfo.Key == ConsoleKey.L)    //Right
+            {
+                xDir = 1;
+            }
+            else if (keyInfo.Key == ConsoleKey.H)   //Left
+            {
+                xDir = -1;
+            }
+            else if (keyInfo.Key == ConsoleKey.K)   //Up
+            {
+                yDir = -1;
+            }
+            else if (keyInfo.Key == ConsoleKey.J)   //Down
+            {
+                yDir = 1;
+            }
+
+            if (xDir != 0 || yDir != 0)
+            {
+                //Load a list of possible targets to hit
+                List<Baddie> targets = new List<Baddie>();
+                int deltaX;
+                int deltaY;
+                foreach (Baddie baddie in baddies)
+                {
+                    deltaX = baddie.XPos - dude.XPos;
+                    deltaY = baddie.YPos - dude.YPos;
+                    //If on the same horizontal line
+                    if (dude.YPos == baddie.YPos)
+                    {
+                        //...and the shot direction matches
+                        if (Math.Sign(deltaX) == xDir)
+                        {
+                            targets.Add(baddie);
+                        }
+                    }
+                    //else if on the same vertical line
+                    else if (dude.XPos == baddie.XPos)
+                    {
+                        //...and the shot direction matches
+                        if (Math.Sign(deltaY) == yDir)
+                        {
+                            targets.Add(baddie);
+                        }
+                    }
+                }
+
+                //Go through the list and hit the closest one
+                double distance;
+                double lowestDistance = 999;
+                int closestIndex = -1;
+                int absX;
+                int absY;
+                for (int i = 0; i < targets.Count; i++)
+                {
+                    absX = Math.Abs(targets[i].XPos - dude.XPos);
+                    absY = Math.Abs(targets[i].YPos - dude.YPos);
+
+                    distance = Math.Sqrt(Math.Pow(absX, 2) + Math.Pow(absY, 2));
+                    if (distance < lowestDistance)
+                    {
+                        lowestDistance = distance;
+                        closestIndex = i;
+                    }
+                }
+                if (closestIndex >= 0)
+                {
+                    targets[closestIndex].Color = ConsoleColor.Red;
+                }
+            }
         }
 
         private void EatBrains(ref bool running)

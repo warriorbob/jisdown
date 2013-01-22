@@ -93,8 +93,16 @@ namespace dmg
             BackbufferBaddies();
             
             DrawFromBuffers(newScreen, previousScreen);
-            
-            //Reinitialize newScreen to black spaces
+
+            InitializeNewScreen();
+
+            //Reposition cursor
+            Console.SetCursorPosition(0, CONSOLE_HEIGHT-1);
+        }
+
+        //Reinitializes newScreen to black spaces
+        private void InitializeNewScreen()
+        {
             for (int w = 0; w < CONSOLE_WIDTH; w++)
             {
                 for (int h = 0; h < CONSOLE_HEIGHT - 1; h++)
@@ -105,9 +113,6 @@ namespace dmg
                     newScreen[w, h].ForegroundColor = ConsoleColor.White;
                 }
             }
-
-            //Reposition cursor
-            Console.SetCursorPosition(0, CONSOLE_HEIGHT-1);
         }
 
         public void DrawFromBuffers(ConsoleChar[,] newScreen, ConsoleChar[,] previousScreen)

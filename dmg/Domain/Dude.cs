@@ -21,5 +21,12 @@ namespace dmg.Domain
             Color = ConsoleColor.White;
             Char = '@';
         }
+
+        public void Draw(ref ConsoleChar[,] screen, Map screenGrid)
+        {
+            screen[XPos, YPos].BackgroundColor = screenGrid.Grid[XPos, YPos].BackgroundColor;
+            screen[XPos, YPos].ForegroundColor = Color;
+            screen[XPos, YPos].Char = Char;
+        }
     }
 }

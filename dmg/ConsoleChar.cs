@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace dmg
 {
-    class ConsoleChar
+    public class ConsoleChar
     {
         public char Char { get; set; }
         public ConsoleColor BackgroundColor { get; set; }

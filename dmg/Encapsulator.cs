@@ -177,9 +177,7 @@ namespace dmg
 
         public void BackbufferDude()
         {
-            newScreen[dude.XPos, dude.YPos].BackgroundColor = screenGrid.Grid[dude.XPos, dude.YPos].BackgroundColor;
-            newScreen[dude.XPos, dude.YPos].ForegroundColor = dude.Color;
-            newScreen[dude.XPos, dude.YPos].Char = dude.Char;
+            dude.Draw(ref newScreen, screenGrid);
         }
 
         //INPUT------------------------------------------------------------------------------------

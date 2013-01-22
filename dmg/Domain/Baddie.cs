@@ -80,7 +80,18 @@ namespace dmg.Domain
         //Blarg!!
         public void Blarg(int fromX, int fromY, ref Map map)
         {
+            int xDirectionSign = Math.Sign(XPos - fromX);
+            int yDirectionSign = Math.Sign(YPos - fromY);
+
+            PaintBackground(ref map, XPos, YPos, ConsoleColor.DarkRed);
+            PaintBackground(ref map, XPos + xDirectionSign, YPos + yDirectionSign, ConsoleColor.Red);
+            
             Alive = false;
+        }
+
+        private void PaintBackground(ref Map map, int x, int y, ConsoleColor color)
+        {
+            map.Grid[x, y].BackgroundColor = color;
         }
     }
 }

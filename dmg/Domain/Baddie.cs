@@ -13,6 +13,11 @@ namespace dmg.Domain
         public ConsoleColor Color { get; set; }
         public Char Char { get; set; }
 
+        /// <summary>
+        /// Baddie constructor
+        /// </summary>
+        /// <param name="x">Initial X location</param>
+        /// <param name="y">Initial Y location</param>
         public Baddie(int x, int y)
         {
             XPos = x;
@@ -21,6 +26,11 @@ namespace dmg.Domain
             Char = 'J';
         }
 
+        /// <summary>
+        /// Moves baddie towards the target position
+        /// </summary>
+        /// <param name="targetX">Target X coordinate</param>
+        /// <param name="targetY">Target Y coordinate</param>
         public void Chase(int targetX, int targetY)
         {
             int deltaX;

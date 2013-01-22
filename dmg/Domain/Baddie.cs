@@ -77,9 +77,10 @@ namespace dmg.Domain
             screen[XPos, YPos].Char = Char;
         }
 
+        //Blarg!!
         public void Blarg(int fromX, int fromY, ref Map map)
         {
-            
+            Alive = false;
         }
     }
 }

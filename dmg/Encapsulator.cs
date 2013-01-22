@@ -291,8 +291,7 @@ namespace dmg
                 }
                 if (closestIndex >= 0)
                 {
-                    targets[closestIndex].Color = ConsoleColor.Red;
-                    targets[closestIndex].Alive = false;
+                    targets[closestIndex].Blarg(dude.XPos, dude.YPos, ref screenGrid);
                 }
             }
         }

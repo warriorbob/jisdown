@@ -11,7 +11,8 @@ namespace dmg.Domain
         public int XPos { get; set; }
         public int YPos { get;set; }
         public ConsoleColor Color { get; set; }
-        public Char Char { get; set; }
+        public char Char { get; set; }
+        public bool Alive { get; set; }
 
         /// <summary>
         /// Baddie constructor
@@ -24,6 +25,7 @@ namespace dmg.Domain
             YPos = y;
             Color = ConsoleColor.White;
             Char = 'J';
+            Alive = true;
         }
 
         /// <summary>
@@ -73,6 +75,11 @@ namespace dmg.Domain
             screen[XPos, YPos].BackgroundColor = screenGrid.Grid[XPos, YPos].BackgroundColor;
             screen[XPos, YPos].ForegroundColor = Color;
             screen[XPos, YPos].Char = Char;
+        }
+
+        public void Blarg(int fromX, int fromY, ref Map map)
+        {
+            
         }
     }
 }

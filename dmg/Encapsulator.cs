@@ -201,8 +201,20 @@ namespace dmg
         {
             Bang();
             MoveDude();
+            CleanBaddies();
             MoveBaddies();
             EatBrains(ref running);
+        }
+
+        private void CleanBaddies()
+        {
+            for (int i = 0; i < baddies.Count; i++)
+            {
+                if (!baddies[i].Alive)
+                {
+                    baddies.Remove(baddies[i]);
+                }
+            }
         }
 
         //BANG
@@ -280,6 +292,7 @@ namespace dmg
                 if (closestIndex >= 0)
                 {
                     targets[closestIndex].Color = ConsoleColor.Red;
+                    targets[closestIndex].Alive = false;
                 }
             }
         }

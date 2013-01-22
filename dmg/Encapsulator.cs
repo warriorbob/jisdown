@@ -169,9 +169,7 @@ namespace dmg
         {
             foreach (Baddie baddie in baddies)
             {
-                newScreen[baddie.XPos, baddie.YPos].BackgroundColor = screenGrid.Grid[baddie.XPos, baddie.YPos].BackgroundColor;
-                newScreen[baddie.XPos, baddie.YPos].ForegroundColor = baddie.Color;
-                newScreen[baddie.XPos, baddie.YPos].Char = baddie.Char;
+                baddie.Draw(ref newScreen, screenGrid);
             }
         }
 

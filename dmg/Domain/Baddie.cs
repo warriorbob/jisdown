@@ -84,12 +84,13 @@ namespace dmg.Domain
             int yDirectionSign = Math.Sign(YPos - fromY);
 
             PaintBackground(ref map, XPos, YPos, ConsoleColor.Red); // Baddie location
-            PaintBackground(ref map, XPos + xDirectionSign, YPos + yDirectionSign, ConsoleColor.Red); //Right next
-            PaintBackground(ref map, XPos + 2 * xDirectionSign, YPos + 2 * yDirectionSign, ConsoleColor.DarkRed); //Right next
+            PaintBackground(ref map, XPos + xDirectionSign, YPos + yDirectionSign, ConsoleColor.DarkRed); //Right next
+            PaintForeground(ref map, XPos + xDirectionSign, YPos + yDirectionSign, ConsoleColor.Red); //Right next foreground
+            PaintForeground(ref map, XPos + 2 * xDirectionSign, YPos + 2 * yDirectionSign, ConsoleColor.DarkRed); //Right next next
             PaintBackground(ref map, XPos + xDirectionSign + yDirectionSign, YPos + yDirectionSign + xDirectionSign, ConsoleColor.DarkRed); //one side
-            PaintBackground(ref map, XPos + xDirectionSign - yDirectionSign, YPos + yDirectionSign - xDirectionSign, ConsoleColor.DarkRed); //one side
-            PaintBackground(ref map, XPos + 2 * xDirectionSign + yDirectionSign, YPos + 2 * yDirectionSign + xDirectionSign, ConsoleColor.DarkRed); //2 out, Right next
-            PaintBackground(ref map, XPos + 2 * xDirectionSign - yDirectionSign, YPos + 2 * yDirectionSign - xDirectionSign, ConsoleColor.DarkRed); //2 out, Right next
+            PaintBackground(ref map, XPos + xDirectionSign - yDirectionSign, YPos + yDirectionSign - xDirectionSign, ConsoleColor.DarkRed); //other side
+            PaintForeground(ref map, XPos + 2 * xDirectionSign + yDirectionSign, YPos + 2 * yDirectionSign + xDirectionSign, ConsoleColor.DarkRed); //2 out, one side
+            PaintForeground(ref map, XPos + 2 * xDirectionSign - yDirectionSign, YPos + 2 * yDirectionSign - xDirectionSign, ConsoleColor.DarkRed); //2 out, other side 
 
             Alive = false;
         }
@@ -97,6 +98,11 @@ namespace dmg.Domain
         private void PaintBackground(ref Map map, int x, int y, ConsoleColor color)
         {
             map.Grid[x, y].BackgroundColor = color;
+        }
+
+        private void PaintForeground(ref Map map, int x, int y, ConsoleColor color)
+        {
+            map.Grid[x, y].ForegroundColor = color;
         }
     }
 }

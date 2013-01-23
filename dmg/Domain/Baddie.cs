@@ -83,9 +83,14 @@ namespace dmg.Domain
             int xDirectionSign = Math.Sign(XPos - fromX);
             int yDirectionSign = Math.Sign(YPos - fromY);
 
-            PaintBackground(ref map, XPos, YPos, ConsoleColor.DarkRed);
-            PaintBackground(ref map, XPos + xDirectionSign, YPos + yDirectionSign, ConsoleColor.Red);
-            
+            PaintBackground(ref map, XPos, YPos, ConsoleColor.Red); // Baddie location
+            PaintBackground(ref map, XPos + xDirectionSign, YPos + yDirectionSign, ConsoleColor.Red); //Right next
+            PaintBackground(ref map, XPos + 2 * xDirectionSign, YPos + 2 * yDirectionSign, ConsoleColor.DarkRed); //Right next
+            PaintBackground(ref map, XPos + xDirectionSign + yDirectionSign, YPos + yDirectionSign + xDirectionSign, ConsoleColor.DarkRed); //one side
+            PaintBackground(ref map, XPos + xDirectionSign - yDirectionSign, YPos + yDirectionSign - xDirectionSign, ConsoleColor.DarkRed); //one side
+            PaintBackground(ref map, XPos + 2 * xDirectionSign + yDirectionSign, YPos + 2 * yDirectionSign + xDirectionSign, ConsoleColor.DarkRed); //2 out, Right next
+            PaintBackground(ref map, XPos + 2 * xDirectionSign - yDirectionSign, YPos + 2 * yDirectionSign - xDirectionSign, ConsoleColor.DarkRed); //2 out, Right next
+
             Alive = false;
         }
 

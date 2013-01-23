@@ -25,7 +25,7 @@ namespace dmg.Domain
             {
                 for (int h = 0; h < height; h++)
                 {
-                    Grid[w, h] = new Tile {Char = '.', BackgroundColor = ConsoleColor.Black, ForegroundColor = ConsoleColor.Gray};
+                    Grid[w, h] = new Tile {Char = '.', BackgroundColor = ConsoleColor.Black, ForegroundColor = ConsoleColor.DarkGray};
                 }
             }
         }

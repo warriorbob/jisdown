@@ -70,11 +70,12 @@ namespace dmg
         /// </summary>
         public void Go()
         {
+            //Draw once outside of the loop
             Draw();
 
             bool running = true;
 
-            while (running == true)
+            while (running == true) //Main loop
             {
                 Draw();
                 HandleInput(ref running);

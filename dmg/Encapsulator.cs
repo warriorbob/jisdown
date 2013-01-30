@@ -26,6 +26,11 @@ namespace dmg
         public ConsoleChar[,] newScreen;
         public ConsoleChar[,] previousScreen;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="width">ScreenGrid width</param>
+        /// <param name="height">ScreenGrid height</param>
         public Encapsulator(int width, int height)
         {
             //Infrastructure
@@ -60,6 +65,9 @@ namespace dmg
             baddies.Add(new Baddie(25, 15));
         }
 
+        /// <summary>
+        /// This is the method with the main loop in it.
+        /// </summary>
         public void Go()
         {
             Draw();
@@ -68,10 +76,10 @@ namespace dmg
 
             while (running == true)
             {
-
+                Draw();
                 HandleInput(ref running);
                 UpdateState(ref running);
-                Draw();
+                keyInfo = new ConsoleKeyInfo();
             }
 
             //"Press any key to continue" when we're done
@@ -84,8 +92,6 @@ namespace dmg
         /// <summary>
         /// Draw all the things
         /// </summary>
-        /// <param name="screenGrid"></param>
-        /// <param name="dude"></param>
         public void Draw()
         {
             BackbufferMap();

@@ -78,8 +78,10 @@ namespace dmg
             while (running == true) //Main loop
             {
                 Draw();
-                HandleInput(ref running);
+                GetInput(ref running);
                 UpdateState(ref running);
+
+                //Reinitialize input
                 keyInfo = new ConsoleKeyInfo();
             }
 
@@ -191,16 +193,9 @@ namespace dmg
         }
 
         //INPUT------------------------------------------------------------------------------------
-        private void HandleInput(ref bool running)
+        private void GetInput(ref bool running)
         {
             keyInfo = Console.ReadKey();
-            //Control-shift-Q to quit
-            if (keyInfo.Key == ConsoleKey.Q
-                && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Shift)
-                && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Control))
-            {
-                running = false;
-            }
         }
 
         //UPDATE-----------------------------------------------------------------------------------
@@ -211,6 +206,14 @@ namespace dmg
             CleanBaddies();
             MoveBaddies();
             EatBrains(ref running);
+            
+            //Control-shift-Q to quit
+            if (keyInfo.Key == ConsoleKey.Q
+                && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Shift)
+                && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Control))
+            {
+                running = false;
+            }
         }
 
         private void CleanBaddies()

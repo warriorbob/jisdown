@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using dmg.Domain;
+using dmg.Interrupt;
 
 namespace dmg
 {
@@ -17,10 +18,11 @@ namespace dmg
 
         private int GRID_WIDTH = 80;
         private int GRID_HEIGHT = 24;
-        
-        private Dude dude;
-        private List<Baddie> baddies;
+
+        private State state;
+
         private Map screenGrid;
+        private Queue<InterruptEvent> interruptEvents;
 
         private ConsoleKeyInfo keyInfo;
         public ConsoleChar[,] newScreen;
@@ -34,12 +36,14 @@ namespace dmg
         public Encapsulator(int width, int height)
         {
             //Infrastructure
+            state = new State();
             GRID_WIDTH = width;
             GRID_HEIGHT = height;
             screenGrid = new Map(GRID_WIDTH, GRID_HEIGHT);
             keyInfo = new ConsoleKeyInfo();
             newScreen = new ConsoleChar[CONSOLE_WIDTH, CONSOLE_HEIGHT];
             previousScreen = new ConsoleChar[CONSOLE_WIDTH, CONSOLE_HEIGHT];
+            interruptEvents = new Queue<InterruptEvent>();
 
             //Initialize screenbuffers
             for (int w = 0; w < CONSOLE_WIDTH; w++)
@@ -58,11 +62,13 @@ namespace dmg
             }
 
             //Entities
-            dude = new Dude(22, 0);
-            baddies = new List<Baddie>();
-            baddies.Add(new Baddie(20, 15));
-            baddies.Add(new Baddie(22, 15));
-            baddies.Add(new Baddie(25, 15));
+            state.Dude = new Dude(22, 0);
+            state.Baddies = new List<Baddie>();
+            state.Baddies.Add(new Baddie(20, 15));
+            state.Baddies.Add(new Baddie(22, 15));
+            state.Baddies.Add(new Baddie(25, 15));
+
+            //interruptEvents.Enqueue(new InterruptTest());
         }
 
         /// <summary>
@@ -78,8 +84,15 @@ namespace dmg
             while (running == true) //Main loop
             {
                 Draw();
-                GetInput(ref running);
-                UpdateState(ref running);
+                if (interruptEvents.Count > 0)
+                {
+                    interruptEvents.Dequeue().DoStuff(interruptEvents);
+                }
+                else
+                {
+                    GetInput(ref running);
+                    UpdateState(ref running);
+                }
 
                 //Reinitialize input
                 keyInfo = new ConsoleKeyInfo();
@@ -181,7 +194,7 @@ namespace dmg
 
         private void BackbufferBaddies()
         {
-            foreach (Baddie baddie in baddies)
+            foreach (Baddie baddie in state.Baddies)
             {
                 baddie.Draw(ref newScreen, screenGrid);
             }
@@ -189,7 +202,7 @@ namespace dmg
 
         public void BackbufferDude()
         {
-            dude.Draw(ref newScreen, screenGrid);
+            state.Dude.Draw(ref newScreen, screenGrid);
         }
 
         //INPUT------------------------------------------------------------------------------------
@@ -218,11 +231,11 @@ namespace dmg
 
         private void CleanBaddies()
         {
-            for (int i = 0; i < baddies.Count; i++)
+            for (int i = 0; i < state.Baddies.Count; i++)
             {
-                if (!baddies[i].Alive)
+                if (!state.Baddies[i].Alive)
                 {
-                    baddies.Remove(baddies[i]);
+                    state.Baddies.Remove(state.Baddies[i]);
                 }
             }
         }
@@ -257,12 +270,12 @@ namespace dmg
                 List<Baddie> targets = new List<Baddie>();
                 int deltaX;
                 int deltaY;
-                foreach (Baddie baddie in baddies)
+                foreach (Baddie baddie in state.Baddies)
                 {
-                    deltaX = baddie.XPos - dude.XPos;
-                    deltaY = baddie.YPos - dude.YPos;
+                    deltaX = baddie.XPos - state.Dude.XPos;
+                    deltaY = baddie.YPos - state.Dude.YPos;
                     //If on the same horizontal line
-                    if (dude.YPos == baddie.YPos)
+                    if (state.Dude.YPos == baddie.YPos)
                     {
                         //...and the shot direction matches
                         if (Math.Sign(deltaX) == xDir)
@@ -271,7 +284,7 @@ namespace dmg
                         }
                     }
                     //else if on the same vertical line
-                    else if (dude.XPos == baddie.XPos)
+                    else if (state.Dude.XPos == baddie.XPos)
                     {
                         //...and the shot direction matches
                         if (Math.Sign(deltaY) == yDir)
@@ -289,8 +302,8 @@ namespace dmg
                 int absY;
                 for (int i = 0; i < targets.Count; i++)
                 {
-                    absX = Math.Abs(targets[i].XPos - dude.XPos);
-                    absY = Math.Abs(targets[i].YPos - dude.YPos);
+                    absX = Math.Abs(targets[i].XPos - state.Dude.XPos);
+                    absY = Math.Abs(targets[i].YPos - state.Dude.YPos);
 
                     distance = Math.Sqrt(Math.Pow(absX, 2) + Math.Pow(absY, 2));
                     if (distance < lowestDistance)
@@ -301,16 +314,16 @@ namespace dmg
                 }
                 if (closestIndex >= 0)
                 {
-                    targets[closestIndex].Blarg(dude.XPos, dude.YPos, ref screenGrid);
+                    targets[closestIndex].Blarg(state.Dude.XPos, state.Dude.YPos, ref screenGrid);
                 }
             }
         }
 
         private void EatBrains(ref bool running)
         {
-            foreach (Baddie baddie in baddies)
+            foreach (Baddie baddie in state.Baddies)
             {
-                if (baddie.XPos == dude.XPos && baddie.YPos == dude.YPos)
+                if (baddie.XPos == state.Dude.XPos && baddie.YPos == state.Dude.YPos)
                 {
                     running = false;
                 }
@@ -319,9 +332,9 @@ namespace dmg
 
         private void MoveBaddies()
         {   
-            foreach (Baddie baddie in baddies)
+            foreach (Baddie baddie in state.Baddies)
             {
-                baddie.Chase(dude.XPos, dude.YPos);
+                baddie.Chase(state.Dude.XPos, state.Dude.YPos);
             }
         }
 
@@ -330,37 +343,37 @@ namespace dmg
             //Movement
             if (keyInfo.Key == ConsoleKey.W)
             {
-                dude.YPos--;
+                state.Dude.YPos--;
             }
             else if (keyInfo.Key == ConsoleKey.S)
             {
-                dude.YPos++;
+                state.Dude.YPos++;
             }
             else if (keyInfo.Key == ConsoleKey.A)
             {
-                dude.XPos--;
+                state.Dude.XPos--;
             }
             else if (keyInfo.Key == ConsoleKey.D)
             {
-                dude.XPos++;
+                state.Dude.XPos++;
             }
 
             //Constrain dimensions
-            if (dude.XPos < 0)
+            if (state.Dude.XPos < 0)
             {
-                dude.XPos = 0;
+                state.Dude.XPos = 0;
             }
-            else if (dude.XPos > GRID_WIDTH - 1)
+            else if (state.Dude.XPos > GRID_WIDTH - 1)
             {
-                dude.XPos = GRID_WIDTH - 1;
+                state.Dude.XPos = GRID_WIDTH - 1;
             }
-            if (dude.YPos < 0)
+            if (state.Dude.YPos < 0)
             {
-                dude.YPos = 0;
+                state.Dude.YPos = 0;
             }
-            else if (dude.YPos > GRID_HEIGHT - 1)
+            else if (state.Dude.YPos > GRID_HEIGHT - 1)
             {
-                dude.YPos = GRID_HEIGHT - 1;
+                state.Dude.YPos = GRID_HEIGHT - 1;
             }
         }
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace dmg.Domain
 {
-    class Baddie
+    public class Baddie
     {
         public int XPos { get; set; }
         public int YPos { get;set; }

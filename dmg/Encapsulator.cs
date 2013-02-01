@@ -86,7 +86,7 @@ namespace dmg
                 Draw();
                 if (interruptEvents.Count > 0)
                 {
-                    interruptEvents.Dequeue().DoStuff(interruptEvents);
+                    interruptEvents.Dequeue().DoStuff(interruptEvents, state);
                 }
                 else
                 {

@@ -8,7 +8,7 @@ namespace dmg.Interrupt
 {
     public class InterruptTest : InterruptEvent
     {
-        public override void DoStuff(Queue<InterruptEvent> queue)
+        public override void DoStuff(Queue<InterruptEvent> queue, State state)
         {
             Console.WriteLine("test" + DateTime.Now.ToString());
             queue.Enqueue(this);

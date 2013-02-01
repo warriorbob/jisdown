@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace dmg
 {
-    class State
+    public class State
     {
         public Dude Dude { get; set; }
         public List<Baddie> Baddies { get; set; }

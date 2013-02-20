@@ -92,6 +92,14 @@ namespace dmg
                 {
                     GetInput(ref running);
                     UpdateState(ref running);
+
+                    //Control-shift-Q to quit
+                    if (keyInfo.Key == ConsoleKey.Q
+                        && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Shift)
+                        && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Control))
+                    {
+                        running = false;
+                    }
                 }
 
                 //Reinitialize input
@@ -220,13 +228,7 @@ namespace dmg
             MoveBaddies();
             EatBrains(ref running);
             
-            //Control-shift-Q to quit
-            if (keyInfo.Key == ConsoleKey.Q
-                && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Shift)
-                && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Control))
-            {
-                running = false;
-            }
+            
         }
 
         private void CleanBaddies()

@@ -29,7 +29,7 @@ namespace dmg
         public ConsoleChar[,] previousScreen;
 
         /// <summary>
-        /// Constructor
+        /// Constructor. Sets up infrastructure data and initial state.
         /// </summary>
         /// <param name="width">ScreenGrid width</param>
         /// <param name="height">ScreenGrid height</param>
@@ -76,12 +76,12 @@ namespace dmg
         /// </summary>
         public void Go()
         {
-            //Draw once outside of the loop
+            //Draw initial state once outside of the loop
             Draw();
 
+            //Main loop
             bool running = true;
-
-            while (running == true) //Main loop
+            while (running == true)
             {
                 Draw();
                 if (interruptEvents.Count > 0)
@@ -93,7 +93,7 @@ namespace dmg
                     GetInput(ref running);
                     state.UpdateState(ref running, keyInfo, GRID_WIDTH, GRID_HEIGHT, screenGrid);
 
-                    //Control-shift-Q to quit
+                    //Quit if the user presses Ctrl+Shift+q
                     if (keyInfo.Key == ConsoleKey.Q
                         && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Shift)
                         && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Control))
@@ -126,11 +126,12 @@ namespace dmg
 
             InitializeNewScreen();
 
-            //Reposition cursor
+            //Reposition cursor in the lower-left after drawing so
+            //we can write status messages or whatever
             Console.SetCursorPosition(0, CONSOLE_HEIGHT-1);
         }
 
-        //Reinitializes newScreen to black spaces
+        ///Reinitializes newScreen to black spaces
         private void InitializeNewScreen()
         {
             for (int w = 0; w < CONSOLE_WIDTH; w++)
@@ -145,6 +146,7 @@ namespace dmg
             }
         }
 
+        //Fast console-drawing backbuffering technique
         public void DrawFromBuffers(ConsoleChar[,] newScreen, ConsoleChar[,] previousScreen)
         {
            List<ConsoleChar> changes = new List<ConsoleChar>();
@@ -188,7 +190,6 @@ namespace dmg
 
         private void BackbufferMap()
         {
-            //Draw map
             for (int w = 0; w < GRID_WIDTH; w++)
             {
                 for (int h = 0; h < GRID_HEIGHT; h++)

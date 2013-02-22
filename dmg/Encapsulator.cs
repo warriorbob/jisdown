@@ -22,7 +22,6 @@ namespace dmg
         private StateManager stateManager;
 
         private Map screenGrid;
-        private Queue<InterruptEvent> interruptEvents;
 
         private ConsoleKeyInfo keyInfo;
         public ConsoleChar[,] newScreen;
@@ -43,7 +42,7 @@ namespace dmg
             keyInfo = new ConsoleKeyInfo();
             newScreen = new ConsoleChar[CONSOLE_WIDTH, CONSOLE_HEIGHT];
             previousScreen = new ConsoleChar[CONSOLE_WIDTH, CONSOLE_HEIGHT];
-            interruptEvents = new Queue<InterruptEvent>();
+            stateManager.InterruptEvents = new Queue<InterruptEvent>();
 
             //Initialize screenbuffers
             for (int w = 0; w < CONSOLE_WIDTH; w++)
@@ -84,9 +83,9 @@ namespace dmg
             while (running == true)
             {
                 Draw();
-                if (interruptEvents.Count > 0)
+                if (stateManager.InterruptEvents.Count > 0)
                 {
-                    interruptEvents.Dequeue().DoStuff(interruptEvents, stateManager);
+                    stateManager.InterruptEvents.Dequeue().DoStuff(stateManager.InterruptEvents, stateManager);
                 }
                 else
                 {

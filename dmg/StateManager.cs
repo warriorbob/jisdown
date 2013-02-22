@@ -1,4 +1,5 @@
 ﻿using dmg.Domain;
+using dmg.Interrupt;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace dmg
     {
         public Dude Dude { get; set; }
         public List<Baddie> Baddies { get; set; }
+        public Queue<InterruptEvent> InterruptEvents;
         //public Map Map { get; set; }
 
 

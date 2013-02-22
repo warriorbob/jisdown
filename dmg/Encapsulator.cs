@@ -19,7 +19,7 @@ namespace dmg
         private int GRID_WIDTH = 80;
         private int GRID_HEIGHT = 24;
 
-        private State state;
+        private StateManager stateManager;
 
         private Map screenGrid;
         private Queue<InterruptEvent> interruptEvents;
@@ -36,7 +36,7 @@ namespace dmg
         public Encapsulator(int width, int height)
         {
             //Infrastructure
-            state = new State();
+            stateManager = new StateManager();
             GRID_WIDTH = width;
             GRID_HEIGHT = height;
             screenGrid = new Map(GRID_WIDTH, GRID_HEIGHT);
@@ -62,11 +62,11 @@ namespace dmg
             }
 
             //Entities
-            state.Dude = new Dude(22, 0);
-            state.Baddies = new List<Baddie>();
-            state.Baddies.Add(new Baddie(20, 15));
-            state.Baddies.Add(new Baddie(22, 15));
-            state.Baddies.Add(new Baddie(25, 15));
+            stateManager.Dude = new Dude(22, 0);
+            stateManager.Baddies = new List<Baddie>();
+            stateManager.Baddies.Add(new Baddie(20, 15));
+            stateManager.Baddies.Add(new Baddie(22, 15));
+            stateManager.Baddies.Add(new Baddie(25, 15));
 
             //interruptEvents.Enqueue(new InterruptTest());
         }
@@ -86,12 +86,12 @@ namespace dmg
                 Draw();
                 if (interruptEvents.Count > 0)
                 {
-                    interruptEvents.Dequeue().DoStuff(interruptEvents, state);
+                    interruptEvents.Dequeue().DoStuff(interruptEvents, stateManager);
                 }
                 else
                 {
                     GetInput(ref running);
-                    state.UpdateState(ref running, keyInfo, GRID_WIDTH, GRID_HEIGHT, screenGrid);
+                    stateManager.UpdateState(ref running, keyInfo, GRID_WIDTH, GRID_HEIGHT, screenGrid);
 
                     //Quit if the user presses Ctrl+Shift+q
                     if (keyInfo.Key == ConsoleKey.Q
@@ -203,7 +203,7 @@ namespace dmg
 
         private void BackbufferBaddies()
         {
-            foreach (Baddie baddie in state.Baddies)
+            foreach (Baddie baddie in stateManager.Baddies)
             {
                 baddie.Draw(ref newScreen, screenGrid);
             }
@@ -211,7 +211,7 @@ namespace dmg
 
         public void BackbufferDude()
         {
-            state.Dude.Draw(ref newScreen, screenGrid);
+            stateManager.Dude.Draw(ref newScreen, screenGrid);
         }
 
         //INPUT------------------------------------------------------------------------------------

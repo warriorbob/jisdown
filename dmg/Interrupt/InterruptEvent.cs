@@ -8,6 +8,6 @@ namespace dmg.Interrupt
 {
     public abstract class InterruptEvent
     {
-        public abstract void DoStuff(Queue<InterruptEvent> queue, State state);
+        public abstract void DoStuff(Queue<InterruptEvent> queue, StateManager state);
     }
 }

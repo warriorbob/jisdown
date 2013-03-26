@@ -18,11 +18,16 @@ namespace dmg
 
         public void UpdateState(ref bool running, ConsoleKeyInfo keyInfo, int width, int height, Map map)
         {
+            //Player
             Bang(keyInfo, map);
             MoveDude(keyInfo, width, height);
-            CleanBaddies();
+            
+            //Game
             MoveBaddies();
             EatBrains(ref running);
+            
+            //Cleanup
+            CleanBaddies();
         }
 
         //BANG
@@ -158,7 +163,10 @@ namespace dmg
         {
             foreach (Baddie baddie in Baddies)
             {
-                baddie.Chase(Dude.XPos, Dude.YPos);
+                if (baddie.Alive)
+                {
+                    baddie.Chase(Dude.XPos, Dude.YPos);
+                }
             }
         }
 
@@ -166,7 +174,7 @@ namespace dmg
         {
             foreach (Baddie baddie in Baddies)
             {
-                if (baddie.XPos == Dude.XPos && baddie.YPos == Dude.YPos)
+                if (baddie.Alive && baddie.XPos == Dude.XPos && baddie.YPos == Dude.YPos)
                 {
                     running = false;
                 }

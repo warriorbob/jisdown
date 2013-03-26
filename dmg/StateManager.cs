@@ -13,14 +13,15 @@ namespace dmg
         public Dude Dude { get; set; }
         public List<Baddie> Baddies { get; set; }
         public Queue<InterruptEvent> InterruptEvents;
-        public List<Shot> shots { get; set;}
+        public List<Shot> Shots { get; set;}
         //public Map Map { get; set; }
 
 
         public void UpdateState(ref bool running, ConsoleKeyInfo keyInfo, int width, int height, Map map)
         {
             //Player
-            Bang(keyInfo, map);
+            //Bang(keyInfo, map);
+            Fire(keyInfo, map);
             MoveDude(keyInfo, width, height);
             
             //Game
@@ -107,6 +108,37 @@ namespace dmg
                 {
                     targets[closestIndex].Blarg(Dude.XPos, Dude.YPos, ref map);
                 }
+            }
+        }
+
+        //Like Bang() but spawns a shot object and lets that determine the outcome
+        public void Fire(ConsoleKeyInfo keyInfo, Map map)
+        {
+            int xDir = 0;
+            int yDir = 0;
+
+            //Set shot direction
+            if (keyInfo.Key == ConsoleKey.L)    //Right
+            {
+                xDir = 1;
+            }
+            else if (keyInfo.Key == ConsoleKey.H)   //Left
+            {
+                xDir = -1;
+            }
+            else if (keyInfo.Key == ConsoleKey.K)   //Up
+            {
+                yDir = -1;
+            }
+            else if (keyInfo.Key == ConsoleKey.J)   //Down
+            {
+                yDir = 1;
+            }
+
+            if (xDir != 0 || yDir != 0)
+            {
+                Shots.Add(new Shot(Dude.XPos, Dude.YPos, xDir, yDir));
+                InterruptEvents.Enqueue(new ShotInterrupt());
             }
         }
 

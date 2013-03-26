@@ -66,6 +66,7 @@ namespace dmg
             stateManager.Baddies.Add(new Baddie(20, 15));
             stateManager.Baddies.Add(new Baddie(22, 15));
             stateManager.Baddies.Add(new Baddie(25, 15));
+            stateManager.Shots = new List<Shot>();
 
             //stateManager.InterruptEvents.Enqueue(new InterruptTest());
         }
@@ -120,6 +121,8 @@ namespace dmg
             BackbufferMap();
             BackbufferDude();
             BackbufferBaddies();
+            BackbufferShots();
+            
             
             DrawFromBuffers(newScreen, previousScreen);
 
@@ -197,6 +200,14 @@ namespace dmg
                     newScreen[w, h].ForegroundColor = screenGrid.Grid[w, h].ForegroundColor;
                     newScreen[w, h].Char = screenGrid.Grid[w, h].Char;
                 }
+            }
+        }
+
+        private void BackbufferShots()
+        {
+            foreach (Shot shot in stateManager.Shots)
+            {
+                shot.Draw(ref newScreen, screenGrid);
             }
         }
 

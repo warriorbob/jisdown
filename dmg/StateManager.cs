@@ -13,6 +13,7 @@ namespace dmg
         public Dude Dude { get; set; }
         public List<Baddie> Baddies { get; set; }
         public Queue<InterruptEvent> InterruptEvents;
+        public List<Shot> shots { get; set;}
         //public Map Map { get; set; }
 
 

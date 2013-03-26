@@ -67,7 +67,7 @@ namespace dmg
             stateManager.Baddies.Add(new Baddie(22, 15));
             stateManager.Baddies.Add(new Baddie(25, 15));
 
-            stateManager.InterruptEvents.Enqueue(new InterruptTest());
+            //stateManager.InterruptEvents.Enqueue(new InterruptTest());
         }
 
         /// <summary>

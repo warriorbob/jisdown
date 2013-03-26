@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace dmg.Domain
 {
-    class Shot
+    public class Shot
     {
         public int XSpeed { get; set; }
         public int YSpeed { get; set; }

@@ -39,6 +39,7 @@ namespace dmg.Interrupt
                     {
                         baddie.Blarg(state.Dude.XPos,state.Dude.YPos, ref map);
                         shot.Alive = false;
+                        break;
                     }
                 }
             }

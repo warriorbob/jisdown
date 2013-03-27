@@ -21,7 +21,7 @@ namespace dmg
         {
             //Player
             //Bang(keyInfo, map);
-            Fire(keyInfo, map);
+            Fire(keyInfo, map, width, height);
             MoveDude(keyInfo, width, height);
             
             //Game
@@ -112,7 +112,7 @@ namespace dmg
         }
 
         //Like Bang() but spawns a shot object and lets that determine the outcome
-        public void Fire(ConsoleKeyInfo keyInfo, Map map)
+        public void Fire(ConsoleKeyInfo keyInfo, Map map, int width, int height)
         {
             int xDir = 0;
             int yDir = 0;
@@ -138,7 +138,7 @@ namespace dmg
             if (xDir != 0 || yDir != 0)
             {
                 Shots.Add(new Shot(Dude.XPos, Dude.YPos, xDir, yDir));
-                InterruptEvents.Enqueue(new ShotInterrupt());
+                InterruptEvents.Enqueue(new ShotInterrupt(width, height));
             }
         }
 

@@ -86,7 +86,7 @@ namespace dmg
                 Draw();
                 if (stateManager.InterruptEvents.Count > 0)
                 {
-                    stateManager.InterruptEvents.Dequeue().DoStuff(stateManager.InterruptEvents, stateManager, screenGrid);
+                    stateManager.InterruptEvents.Dequeue().DoStuff(stateManager.InterruptEvents, stateManager);
                 }
                 else
                 {

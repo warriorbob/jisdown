@@ -14,6 +14,7 @@ namespace dmg.Domain
         public int YSpeed { get; set; }
         public char Char { get; set; }
         public ConsoleColor Color { get; set; }
+        public bool Alive { get; set; }
 
         public Shot(int xPos, int yPos, int xSpeed, int ySpeed, char displayChar = '.', ConsoleColor color = ConsoleColor.White)
         {
@@ -23,6 +24,7 @@ namespace dmg.Domain
             YSpeed = ySpeed;
             Char = displayChar;
             Color = color;
+            Alive = true;
         }
 
         public void Draw(ref ConsoleChar[,] screen, Map screenGrid)

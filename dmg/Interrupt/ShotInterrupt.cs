@@ -58,7 +58,7 @@ namespace dmg.Interrupt
                 Thread.Sleep(30);
                 queue.Enqueue(this);
             }
-            else
+            else    //This is kind of a hack
             {
                 state.MoveBaddies();
             }

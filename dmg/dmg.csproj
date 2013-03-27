@@ -49,7 +49,6 @@
     <Compile Include="Domain\Tile.cs" />
     <Compile Include="Encapsulator.cs" />
     <Compile Include="Interrupt\InterruptEvent.cs" />
-    <Compile Include="Interrupt\InterruptTest.cs" />
     <Compile Include="Interrupt\ShotInterrupt.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

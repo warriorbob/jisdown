@@ -1,4 +1,5 @@
-﻿using System;
+﻿using dmg.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace dmg.Interrupt
 {
     public abstract class InterruptEvent
     {
-        public abstract void DoStuff(Queue<InterruptEvent> queue, StateManager state);
+        public abstract void DoStuff(Queue<InterruptEvent> queue, StateManager state, Map map);
     }
 }

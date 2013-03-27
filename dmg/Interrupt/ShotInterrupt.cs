@@ -58,6 +58,10 @@ namespace dmg.Interrupt
                 Thread.Sleep(30);
                 queue.Enqueue(this);
             }
+            else
+            {
+                state.MoveBaddies();
+            }
         }
     }
 }

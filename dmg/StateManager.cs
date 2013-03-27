@@ -28,11 +28,11 @@ namespace dmg
 
         private void SpawnBaddies(int width, int height)
         {
-            if (InterruptEvents.Count > 0)
-                return;
+            //if (InterruptEvents.Count > 0)
+            //    return;
 
             Random rand = new Random();
-            if (SpawnTimer == 5)
+            if (SpawnTimer == 3)
             {
                 int newx, newy = 0;
                 do

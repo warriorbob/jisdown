@@ -54,7 +54,7 @@ namespace dmg.Interrupt
             //Queue up another interrupt for the next frame of animation
             if (state.Shots.Count > 0)
             {
-                Thread.Sleep(40);
+                Thread.Sleep(30);
                 queue.Enqueue(this);
             }
         }

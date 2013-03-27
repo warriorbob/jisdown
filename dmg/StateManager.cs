@@ -19,17 +19,12 @@ namespace dmg
 
         public void UpdateState(ref bool running, ConsoleKeyInfo keyInfo, int width, int height, Map map)
         {
-            //Player
-            //Bang(keyInfo, map);
             Fire(keyInfo, map, width, height);
             MoveDude(keyInfo, width, height);
-            
-            //Game
             MoveBaddies();
             EatBrains(ref running);
-            
-            //Cleanup
             CleanBaddies();
+            
         }
 
         //BANG
@@ -114,6 +109,9 @@ namespace dmg
         //Like Bang() but spawns a shot object and lets that determine the outcome
         public void Fire(ConsoleKeyInfo keyInfo, Map map, int width, int height)
         {
+            if (InterruptEvents.Count > 0)
+                return;
+
             int xDir = 0;
             int yDir = 0;
 
@@ -144,6 +142,9 @@ namespace dmg
 
         public void MoveDude(ConsoleKeyInfo keyInfo, int constraintWidth, int constraintHeight)
         {
+            if (InterruptEvents.Count > 0)
+                return;
+
             //Movement
             if (keyInfo.Key == ConsoleKey.W)
             {
@@ -183,6 +184,9 @@ namespace dmg
 
         public void CleanBaddies()
         {
+            if (InterruptEvents.Count > 0)
+                return;
+
             for (int i = 0; i < Baddies.Count; i++)
             {
                 if (!Baddies[i].Alive)
@@ -194,6 +198,9 @@ namespace dmg
 
         public void MoveBaddies()
         {
+            if (InterruptEvents.Count > 0)
+                return;
+
             foreach (Baddie baddie in Baddies)
             {
                 if (baddie.Alive)

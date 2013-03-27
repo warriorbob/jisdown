@@ -83,6 +83,7 @@ namespace dmg
             bool running = true;
             while (running == true)
             {
+                stateManager.CleanBaddies();
                 Draw();
                 if (stateManager.InterruptEvents.Count > 0)
                 {

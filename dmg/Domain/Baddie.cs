@@ -97,12 +97,16 @@ namespace dmg.Domain
 
         private void PaintBackground(ref Map map, int x, int y, ConsoleColor color)
         {
-            map.Grid[x, y].BackgroundColor = color;
+            //MAGIC NUMBERS
+            if(x >= 0 && x < 80 && y >= 0 && y < 24)
+                map.Grid[x, y].BackgroundColor = color;
         }
 
         private void PaintForeground(ref Map map, int x, int y, ConsoleColor color)
         {
-            map.Grid[x, y].ForegroundColor = color;
+            //MAGIC NUMBERS
+            if (x >= 0 && x < 80 && y >= 0 && y < 24)
+                map.Grid[x, y].ForegroundColor = color;
         }
     }
 }

@@ -14,8 +14,7 @@ namespace dmg
         public List<Baddie> Baddies { get; set; }
         public Queue<InterruptEvent> InterruptEvents;
         public List<Shot> Shots { get; set;}
-        //public Map Map { get; set; }
-
+        public int SpawnTimer { get; set; }
 
         public void UpdateState(ref bool running, ConsoleKeyInfo keyInfo, int width, int height, Map map)
         {
@@ -24,7 +23,32 @@ namespace dmg
             MoveBaddies();
             EatBrains(ref running);
             CleanBaddies();
-            
+            SpawnBaddies(width, height);
+        }
+
+        private void SpawnBaddies(int width, int height)
+        {
+            if (InterruptEvents.Count > 0)
+                return;
+
+            Random rand = new Random();
+            if (SpawnTimer == 5)
+            {
+                int newx, newy = 0;
+                do
+                {
+                    newx = rand.Next(0, width);
+                    newy = rand.Next(0, height);
+                }
+                while (newx == Dude.XPos && newy == Dude.YPos);
+
+                Baddies.Add(new Baddie(newx, newy));
+                SpawnTimer = 0;
+            }
+            else
+            {
+                SpawnTimer++;
+            }
         }
 
         //BANG

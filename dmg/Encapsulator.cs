@@ -43,6 +43,7 @@ namespace dmg
             newScreen = new ConsoleChar[CONSOLE_WIDTH, CONSOLE_HEIGHT];
             previousScreen = new ConsoleChar[CONSOLE_WIDTH, CONSOLE_HEIGHT];
             stateManager.InterruptEvents = new Queue<InterruptEvent>();
+            stateManager.SpawnTimer = 0;
 
             //Initialize screenbuffers
             for (int w = 0; w < CONSOLE_WIDTH; w++)

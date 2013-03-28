@@ -19,6 +19,7 @@ namespace dmg
         private int GRID_WIDTH = 80;
         private int GRID_HEIGHT = 24;
 
+        private const int INITIAL_BADDIE_COUNT = 10;
         private StateManager stateManager;
 
         private Map screenGrid;
@@ -63,14 +64,23 @@ namespace dmg
             }
 
             //Entities
-            stateManager.Dude = new Dude(22, 0);
+            Random rand = new Random();
             stateManager.Baddies = new List<Baddie>();
-            stateManager.Baddies.Add(new Baddie(20, 15));
-            stateManager.Baddies.Add(new Baddie(22, 15));
-            stateManager.Baddies.Add(new Baddie(25, 15));
+            for (int i = 0; i < INITIAL_BADDIE_COUNT; i++)
+            {
+                stateManager.Baddies.Add(new Baddie(rand.Next(0, GRID_WIDTH), rand.Next(0, GRID_HEIGHT)));
+            }
+            
+            stateManager.Dude = new Dude(rand.Next(0,GRID_WIDTH), rand.Next(0,GRID_HEIGHT));
+            foreach (Baddie baddie in stateManager.Baddies)
+            {
+                if (stateManager.Dude.XPos == baddie.XPos && stateManager.Dude.YPos == baddie.YPos)
+                {
+                    stateManager.Dude.XPos = rand.Next(0, GRID_WIDTH);
+                    stateManager.Dude.YPos = rand.Next(0, GRID_HEIGHT);
+                }
+            }
             stateManager.Shots = new List<Shot>();
-
-            //stateManager.InterruptEvents.Enqueue(new InterruptTest());
         }
 
         /// <summary>
@@ -125,7 +135,7 @@ namespace dmg
             BackbufferDude();
             BackbufferBaddies();
             BackbufferShots();
-            backbufferScore();
+            backbufferMessageBar();
             
             
             DrawFromBuffers(newScreen, previousScreen);
@@ -137,7 +147,7 @@ namespace dmg
             Console.SetCursorPosition(0, CONSOLE_HEIGHT-1);
         }
 
-        private void backbufferScore()
+        private void backbufferMessageBar()
         {
             string scoreLabel = "SCORE: ";
             for (int i = 0; i < scoreLabel.Length; i++)

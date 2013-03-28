@@ -15,7 +15,7 @@ namespace dmg.Domain
         public bool Alive { get; set; }
 
         /// <summary>
-        /// Baddie constructorF
+        /// Baddie constructor
         /// </summary>
         /// <param name="x">Initial X location</param>
         /// <param name="y">Initial Y location</param>
@@ -23,8 +23,8 @@ namespace dmg.Domain
         {
             XPos = x;
             YPos = y;
-            Color = ConsoleColor.White;
-            Char = 'J';
+            Color = ConsoleColor.DarkCyan;
+            Char = '☺';
             Alive = true;
         }
 

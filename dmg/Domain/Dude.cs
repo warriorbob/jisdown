@@ -19,7 +19,7 @@ namespace dmg.Domain
             XPos = x;
             YPos = y;
             Color = ConsoleColor.White;
-            Char = '@';
+            Char = '♀';
         }
 
         public void Draw(ref ConsoleChar[,] screen, Map screenGrid)

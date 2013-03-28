@@ -39,6 +39,7 @@ namespace dmg.Interrupt
                     {
                         baddie.Blarg(state.Dude.XPos,state.Dude.YPos, ref map);
                         shot.Alive = false;
+                        state.Score++;
                         break;
                     }
                 }
@@ -55,7 +56,7 @@ namespace dmg.Interrupt
             //Queue up another interrupt for the next frame of animation
             if (state.Shots.Count > 0)
             {
-                Thread.Sleep(30);
+                Thread.Sleep(20);
                 queue.Enqueue(this);
             }
             else    //This is kind of a hack

@@ -15,7 +15,7 @@ namespace dmg.Domain
         public bool Alive { get; set; }
 
         /// <summary>
-        /// Baddie constructor
+        /// Baddie constructorF
         /// </summary>
         /// <param name="x">Initial X location</param>
         /// <param name="y">Initial Y location</param>

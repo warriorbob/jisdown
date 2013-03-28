@@ -44,11 +44,12 @@ namespace dmg
             previousScreen = new ConsoleChar[CONSOLE_WIDTH, CONSOLE_HEIGHT];
             stateManager.InterruptEvents = new Queue<InterruptEvent>();
             stateManager.SpawnTimer = 0;
+            stateManager.Score = 0;
 
             //Initialize screenbuffers
             for (int w = 0; w < CONSOLE_WIDTH; w++)
             {
-                for (int h = 0; h < CONSOLE_HEIGHT-1; h++)
+                for (int h = 0; h < CONSOLE_HEIGHT; h++)
                 {
                     newScreen[w, h] = new ConsoleChar();
                     newScreen[w, h].Char = ' ';
@@ -124,6 +125,7 @@ namespace dmg
             BackbufferDude();
             BackbufferBaddies();
             BackbufferShots();
+            backbufferScore();
             
             
             DrawFromBuffers(newScreen, previousScreen);
@@ -135,12 +137,30 @@ namespace dmg
             Console.SetCursorPosition(0, CONSOLE_HEIGHT-1);
         }
 
+        private void backbufferScore()
+        {
+            string scoreLabel = "SCORE: ";
+            for (int i = 0; i < scoreLabel.Length; i++)
+            {
+                newScreen[i, CONSOLE_HEIGHT - 1].BackgroundColor = ConsoleColor.Black;
+                newScreen[i, CONSOLE_HEIGHT - 1].ForegroundColor = ConsoleColor.White;
+                newScreen[i, CONSOLE_HEIGHT - 1].Char = scoreLabel[i];
+            }
+
+            for (int i = scoreLabel.Length; i < scoreLabel.Length + stateManager.Score.ToString().Length; i++)
+            {
+                newScreen[i, CONSOLE_HEIGHT - 1].BackgroundColor = ConsoleColor.White;
+                newScreen[i, CONSOLE_HEIGHT - 1].ForegroundColor = ConsoleColor.Black;
+                newScreen[i, CONSOLE_HEIGHT - 1].Char = stateManager.Score.ToString()[i - scoreLabel.Length];
+            }
+        }
+
         ///Reinitializes newScreen to black spaces
         private void InitializeNewScreen()
         {
             for (int w = 0; w < CONSOLE_WIDTH; w++)
             {
-                for (int h = 0; h < CONSOLE_HEIGHT - 1; h++)
+                for (int h = 0; h < CONSOLE_HEIGHT; h++)
                 {
                     newScreen[w, h] = new ConsoleChar();
                     newScreen[w, h].Char = ' ';
@@ -157,7 +177,7 @@ namespace dmg
 
             for (int w = 0; w < CONSOLE_WIDTH; w++)
             {
-                for (int h = 0; h < CONSOLE_HEIGHT - 1; h++)
+                for (int h = 0; h < CONSOLE_HEIGHT; h++)
                 {
                     if (!newScreen[w, h].Matches(previousScreen[w, h]))
                     {

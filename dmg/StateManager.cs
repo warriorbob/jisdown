@@ -15,6 +15,7 @@ namespace dmg
         public Queue<InterruptEvent> InterruptEvents;
         public List<Shot> Shots { get; set;}
         public int SpawnTimer { get; set; }
+        public int Score { get; set; }
 
         public void UpdateState(ref bool running, ConsoleKeyInfo keyInfo, int width, int height, Map map)
         {

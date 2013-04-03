@@ -43,7 +43,7 @@ namespace dmg
             keyInfo = new ConsoleKeyInfo();
             newScreen = new ConsoleChar[CONSOLE_WIDTH, CONSOLE_HEIGHT];
             previousScreen = new ConsoleChar[CONSOLE_WIDTH, CONSOLE_HEIGHT];
-            stateManager.InterruptEvents = new Queue<InterruptEvent>();
+            stateManager.InterruptEvents = new Queue<IInterruptEvent>();
             stateManager.SpawnTimer = 0;
             stateManager.Score = 0;
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace dmg.Interrupt
 {
-    public class ShotInterrupt : InterruptEvent
+    public class ShotInterrupt : IInterruptEvent
     {
         public int constraintWidth { get; set; }
         public int constraintHeight { get; set; }
@@ -19,7 +19,7 @@ namespace dmg.Interrupt
             constraintHeight = height;
         }
 
-        public override void DoStuff(Queue<InterruptEvent> queue, StateManager state, ref Map map)
+        public void DoStuff(Queue<IInterruptEvent> queue, StateManager state, ref Map map)
         {
             foreach (Shot shot in state.Shots)
             {

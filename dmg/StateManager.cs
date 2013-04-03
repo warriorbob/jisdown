@@ -12,7 +12,7 @@ namespace dmg
     {
         public Dude Dude { get; set; }
         public List<Baddie> Baddies { get; set; }
-        public Queue<InterruptEvent> InterruptEvents;
+        public Queue<IInterruptEvent> InterruptEvents;
         public List<Shot> Shots { get; set;}
         public int SpawnTimer { get; set; }
         public int Score { get; set; }

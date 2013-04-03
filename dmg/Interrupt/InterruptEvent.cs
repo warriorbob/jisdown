@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace dmg.Interrupt
 {
-    public abstract class InterruptEvent
+    public interface IInterruptEvent
     {
-        public abstract void DoStuff(Queue<InterruptEvent> queue, StateManager state, ref Map map);
+        void DoStuff(Queue<IInterruptEvent> queue, StateManager state, ref Map map);
     }
 }

@@ -22,7 +22,7 @@ namespace dmg
         private const int INITIAL_BADDIE_COUNT = 10;
         private StateManager stateManager;
 
-        private Map screenGrid;
+        private Map theMap;
 
         private ConsoleKeyInfo keyInfo;
         public ConsoleChar[,] newScreen;
@@ -39,7 +39,7 @@ namespace dmg
             stateManager = new StateManager();
             GRID_WIDTH = width;
             GRID_HEIGHT = height;
-            screenGrid = new Map(GRID_WIDTH, GRID_HEIGHT);
+            theMap = new Map(GRID_WIDTH, GRID_HEIGHT);
             keyInfo = new ConsoleKeyInfo();
             newScreen = new ConsoleChar[CONSOLE_WIDTH, CONSOLE_HEIGHT];
             previousScreen = new ConsoleChar[CONSOLE_WIDTH, CONSOLE_HEIGHT];
@@ -99,12 +99,12 @@ namespace dmg
                 Draw();
                 if (stateManager.InterruptEvents.Count > 0)
                 {
-                    stateManager.InterruptEvents.Dequeue().DoStuff(stateManager.InterruptEvents, stateManager, ref screenGrid);
+                    stateManager.InterruptEvents.Dequeue().DoStuff(stateManager.InterruptEvents, stateManager, ref theMap);
                 }
                 else
                 {
                     GetInput(ref running);
-                    stateManager.UpdateState(ref running, keyInfo, GRID_WIDTH, GRID_HEIGHT, screenGrid);
+                    stateManager.UpdateState(ref running, keyInfo, GRID_WIDTH, GRID_HEIGHT, theMap);
 
                     //Quit if the user presses Ctrl+Shift+q
                     if (keyInfo.Key == ConsoleKey.Q
@@ -228,9 +228,9 @@ namespace dmg
             {
                 for (int h = 0; h < GRID_HEIGHT; h++)
                 {
-                    newScreen[w, h].BackgroundColor = screenGrid.Grid[w, h].BackgroundColor;
-                    newScreen[w, h].ForegroundColor = screenGrid.Grid[w, h].ForegroundColor;
-                    newScreen[w, h].Char = screenGrid.Grid[w, h].Char;
+                    newScreen[w, h].BackgroundColor = theMap.Grid[w, h].BackgroundColor;
+                    newScreen[w, h].ForegroundColor = theMap.Grid[w, h].ForegroundColor;
+                    newScreen[w, h].Char = theMap.Grid[w, h].Char;
                 }
             }
         }
@@ -239,7 +239,7 @@ namespace dmg
         {
             foreach (Shot shot in stateManager.Shots)
             {
-                shot.Draw(ref newScreen, screenGrid);
+                shot.Draw(ref newScreen, theMap);
             }
         }
 
@@ -247,13 +247,13 @@ namespace dmg
         {
             foreach (Baddie baddie in stateManager.Baddies)
             {
-                baddie.Draw(ref newScreen, screenGrid);
+                baddie.Draw(ref newScreen, theMap);
             }
         }
 
         public void BackbufferDude()
         {
-            stateManager.Dude.Draw(ref newScreen, screenGrid);
+            stateManager.Dude.Draw(ref newScreen, theMap);
         }
 
         //INPUT------------------------------------------------------------------------------------

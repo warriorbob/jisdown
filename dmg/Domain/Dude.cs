@@ -22,9 +22,9 @@ namespace dmg.Domain
             Char = '♀';
         }
 
-        public void Draw(ref ConsoleChar[,] screen, Map screenGrid)
+        public void Draw(ref ConsoleChar[,] screen, Map map)
         {
-            screen[XPos, YPos].BackgroundColor = screenGrid.Grid[XPos, YPos].BackgroundColor;
+            screen[XPos, YPos].BackgroundColor = map.Grid[XPos, YPos].BackgroundColor;
             screen[XPos, YPos].ForegroundColor = Color;
             screen[XPos, YPos].Char = Char;
         }

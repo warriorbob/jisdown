@@ -29,5 +29,18 @@ namespace dmg.Domain
                 }
             }
         }
+
+        public void Draw(ref ConsoleChar[,] screen, int width, int height)
+        {
+            for (int w = 0; w < width; w++)
+            {
+                for (int h = 0; h < height; h++)
+                {
+                    screen[w, h].BackgroundColor = Grid[w, h].BackgroundColor;
+                    screen[w, h].ForegroundColor = Grid[w, h].ForegroundColor;
+                    screen[w, h].Char = Grid[w, h].Char;
+                }
+            }
+        }
     }
 }

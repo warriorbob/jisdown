@@ -224,15 +224,7 @@ namespace dmg
 
         private void BackbufferMap()
         {
-            for (int w = 0; w < GRID_WIDTH; w++)
-            {
-                for (int h = 0; h < GRID_HEIGHT; h++)
-                {
-                    newScreen[w, h].BackgroundColor = theMap.Grid[w, h].BackgroundColor;
-                    newScreen[w, h].ForegroundColor = theMap.Grid[w, h].ForegroundColor;
-                    newScreen[w, h].Char = theMap.Grid[w, h].Char;
-                }
-            }
+            theMap.Draw(ref newScreen, GRID_WIDTH, GRID_HEIGHT);
         }
 
         private void BackbufferShots()

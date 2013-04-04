@@ -137,7 +137,6 @@ namespace dmg
             BackbufferShots();
             backbufferMessageBar();
             
-            
             DrawFromBuffers(newScreen, previousScreen);
 
             InitializeNewScreen();
@@ -145,6 +144,32 @@ namespace dmg
             //Reposition cursor in the lower-left after drawing so
             //we can write status messages or whatever
             Console.SetCursorPosition(0, CONSOLE_HEIGHT-1);
+        }
+
+        private void BackbufferMap()
+        {
+            theMap.Draw(ref newScreen, GRID_WIDTH, GRID_HEIGHT);
+        }
+
+        public void BackbufferDude()
+        {
+            stateManager.Dude.Draw(ref newScreen, theMap);
+        }
+
+        private void BackbufferBaddies()
+        {
+            foreach (Baddie baddie in stateManager.Baddies)
+            {
+                baddie.Draw(ref newScreen, theMap);
+            }
+        }
+
+        private void BackbufferShots()
+        {
+            foreach (Shot shot in stateManager.Shots)
+            {
+                shot.Draw(ref newScreen, theMap);
+            }
         }
 
         private void backbufferMessageBar()
@@ -162,21 +187,6 @@ namespace dmg
                 newScreen[i, CONSOLE_HEIGHT - 1].BackgroundColor = ConsoleColor.White;
                 newScreen[i, CONSOLE_HEIGHT - 1].ForegroundColor = ConsoleColor.Black;
                 newScreen[i, CONSOLE_HEIGHT - 1].Char = stateManager.Score.ToString()[i - scoreLabel.Length];
-            }
-        }
-
-        ///Reinitializes newScreen to black spaces
-        private void InitializeNewScreen()
-        {
-            for (int w = 0; w < CONSOLE_WIDTH; w++)
-            {
-                for (int h = 0; h < CONSOLE_HEIGHT; h++)
-                {
-                    newScreen[w, h] = new ConsoleChar();
-                    newScreen[w, h].Char = ' ';
-                    newScreen[w, h].BackgroundColor = ConsoleColor.Black;
-                    newScreen[w, h].ForegroundColor = ConsoleColor.White;
-                }
             }
         }
 
@@ -222,30 +232,19 @@ namespace dmg
             }
         }
 
-        private void BackbufferMap()
+        ///Reinitializes newScreen to black spaces
+        private void InitializeNewScreen()
         {
-            theMap.Draw(ref newScreen, GRID_WIDTH, GRID_HEIGHT);
-        }
-
-        private void BackbufferShots()
-        {
-            foreach (Shot shot in stateManager.Shots)
+            for (int w = 0; w < CONSOLE_WIDTH; w++)
             {
-                shot.Draw(ref newScreen, theMap);
+                for (int h = 0; h < CONSOLE_HEIGHT; h++)
+                {
+                    newScreen[w, h] = new ConsoleChar();
+                    newScreen[w, h].Char = ' ';
+                    newScreen[w, h].BackgroundColor = ConsoleColor.Black;
+                    newScreen[w, h].ForegroundColor = ConsoleColor.White;
+                }
             }
-        }
-
-        private void BackbufferBaddies()
-        {
-            foreach (Baddie baddie in stateManager.Baddies)
-            {
-                baddie.Draw(ref newScreen, theMap);
-            }
-        }
-
-        public void BackbufferDude()
-        {
-            stateManager.Dude.Draw(ref newScreen, theMap);
         }
 
         //INPUT------------------------------------------------------------------------------------

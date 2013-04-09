@@ -17,6 +17,16 @@ namespace dmg
         public int SpawnTimer { get; set; }
         public int Score { get; set; }
 
+        public StateManager(List<Baddie> baddies, Queue<IInterruptEvent> interruptEvents, List<Shot> shots, int spawnTimer, int score)
+        {
+            Dude = new Dude(0, 0);
+            Baddies = baddies;
+            InterruptEvents = interruptEvents;
+            Shots = shots;
+            SpawnTimer = spawnTimer;
+            Score = score;
+        }
+
         public void UpdateState(ref bool running, ConsoleKeyInfo keyInfo, int width, int height, Map map)
         {
             Fire(keyInfo, map, width, height);

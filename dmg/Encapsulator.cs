@@ -36,17 +36,20 @@ namespace dmg
         public Encapsulator(int width, int height)
         {
             //Infrastructure
-            stateManager = new StateManager();
+            stateManager = new StateManager(
+                new List<Baddie>(), 
+                new Queue<IInterruptEvent>(), 
+                new List<Shot>(), 
+                0, 
+                0
+            );
             GRID_WIDTH = width;
             GRID_HEIGHT = height;
             theMap = new Map(GRID_WIDTH, GRID_HEIGHT);
             keyInfo = new ConsoleKeyInfo();
             newScreen = new ConsoleChar[CONSOLE_WIDTH, CONSOLE_HEIGHT];
             previousScreen = new ConsoleChar[CONSOLE_WIDTH, CONSOLE_HEIGHT];
-            stateManager.InterruptEvents = new Queue<IInterruptEvent>();
-            stateManager.SpawnTimer = 0;
-            stateManager.Score = 0;
-
+            
             //Initialize screenbuffers
             for (int w = 0; w < CONSOLE_WIDTH; w++)
             {
@@ -65,7 +68,6 @@ namespace dmg
 
             //Entities
             Random rand = new Random();
-            stateManager.Baddies = new List<Baddie>();
             for (int i = 0; i < INITIAL_BADDIE_COUNT; i++)
             {
                 stateManager.Baddies.Add(new Baddie(rand.Next(0, GRID_WIDTH), rand.Next(0, GRID_HEIGHT)));
@@ -80,7 +82,6 @@ namespace dmg
                     stateManager.Dude.YPos = rand.Next(0, GRID_HEIGHT);
                 }
             }
-            stateManager.Shots = new List<Shot>();
         }
 
         /// <summary>

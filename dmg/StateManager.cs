@@ -32,9 +32,9 @@ namespace dmg
             Fire(keyInfo, map, width, height);
             MoveDude(keyInfo, width, height);
             MoveBaddies();
-            EatBrains(ref running);
             CleanBaddies();
             SpawnBaddies(width, height);
+            EatBrains();
         }
 
         private void SpawnBaddies(int width, int height)
@@ -242,13 +242,13 @@ namespace dmg
             }
         }
 
-        public void EatBrains(ref bool running)
+        public void EatBrains()
         {
             foreach (Baddie baddie in Baddies)
             {
                 if (baddie.Alive && baddie.XPos == Dude.XPos && baddie.YPos == Dude.YPos)
                 {
-                    running = false;
+                    Dude.Alive = false;
                 }
             }
         }

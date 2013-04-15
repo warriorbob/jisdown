@@ -132,6 +132,14 @@ namespace dmg
                     {
                         ResetState();
                     }
+
+                    //End if user is dead
+                    if (stateManager.Dude.Alive == false)
+                    {
+                        running = false;
+                    }
+
+
                 }
 
                 //Reinitialize input

@@ -20,6 +20,7 @@ namespace dmg.Domain
             YPos = y;
             Color = ConsoleColor.White;
             Char = '♀';
+            Alive = true;
         }
 
         public void Draw(ref ConsoleChar[,] screen, Map map)

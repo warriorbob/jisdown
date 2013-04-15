@@ -114,7 +114,7 @@ namespace dmg
                 }
                 else
                 {
-                    GetInput(ref running);
+                    GetInput();
                     stateManager.UpdateState(ref running, keyInfo, GRID_WIDTH, GRID_HEIGHT, theMap);
 
                     //Quit if the user presses Ctrl+Shift+q
@@ -274,7 +274,7 @@ namespace dmg
         }
 
         //INPUT------------------------------------------------------------------------------------
-        private void GetInput(ref bool running)
+        private void GetInput()
         {
             keyInfo = Console.ReadKey();
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace dmg.Domain
 {
-    interface IBaddie
+    public interface IBaddie
     {
         int XPos { get; set; }
         int YPos { get; set; }

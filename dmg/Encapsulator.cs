@@ -36,21 +36,18 @@ namespace dmg
         public Encapsulator(int width, int height)
         {
             //Infrastructure
-            stateManager = new StateManager(
-                new List<Baddie>(), 
-                new Queue<IInterruptEvent>(), 
-                new List<Shot>(), 
-                0, 
-                0
-            );
+            ResetState();
             GRID_WIDTH = width;
             GRID_HEIGHT = height;
-            theMap = new Map(GRID_WIDTH, GRID_HEIGHT);
             keyInfo = new ConsoleKeyInfo();
             newScreen = new ConsoleChar[CONSOLE_WIDTH, CONSOLE_HEIGHT];
             previousScreen = new ConsoleChar[CONSOLE_WIDTH, CONSOLE_HEIGHT];
             
-            //Initialize screenbuffers
+            InitializeScreenbuffers();
+        }
+
+        private void InitializeScreenbuffers()
+        {
             for (int w = 0; w < CONSOLE_WIDTH; w++)
             {
                 for (int h = 0; h < CONSOLE_HEIGHT; h++)
@@ -65,6 +62,19 @@ namespace dmg
                     previousScreen[w, h].ForegroundColor = ConsoleColor.White;
                 }
             }
+        }
+
+        private void ResetState()
+        {
+            stateManager = new StateManager(
+                new List<IBaddie>(),
+                new Queue<IInterruptEvent>(),
+                new List<Shot>(),
+                0,
+                0
+            );
+
+            theMap = new Map(GRID_WIDTH, GRID_HEIGHT);
 
             //Entities
             Random rand = new Random();
@@ -72,8 +82,8 @@ namespace dmg
             {
                 stateManager.Baddies.Add(new Baddie(rand.Next(0, GRID_WIDTH), rand.Next(0, GRID_HEIGHT)));
             }
-            
-            stateManager.Dude = new Dude(rand.Next(0,GRID_WIDTH), rand.Next(0,GRID_HEIGHT));
+
+            stateManager.Dude = new Dude(rand.Next(0, GRID_WIDTH), rand.Next(0, GRID_HEIGHT));
             foreach (Baddie baddie in stateManager.Baddies)
             {
                 if (stateManager.Dude.XPos == baddie.XPos && stateManager.Dude.YPos == baddie.YPos)
@@ -113,6 +123,14 @@ namespace dmg
                         && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Control))
                     {
                         running = false;
+                    }
+
+                    //Reset if the user presses Ctrl+Shift+p
+                    if (keyInfo.Key == ConsoleKey.P
+                        && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Shift)
+                        && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Control))
+                    {
+                        ResetState();
                     }
                 }
 
@@ -175,6 +193,13 @@ namespace dmg
 
         private void backbufferMessageBar()
         {
+            for (int i = 0; i < CONSOLE_WIDTH; i++)
+            {
+                newScreen[i, CONSOLE_HEIGHT - 1].BackgroundColor = ConsoleColor.Black;
+                newScreen[i, CONSOLE_HEIGHT - 1].ForegroundColor = ConsoleColor.White;
+                newScreen[i, CONSOLE_HEIGHT - 1].Char = ' ';
+            }
+
             string scoreLabel = "SCORE: ";
             for (int i = 0; i < scoreLabel.Length; i++)
             {

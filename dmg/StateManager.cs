@@ -11,13 +11,13 @@ namespace dmg
     public class StateManager
     {
         public Dude Dude { get; set; }
-        public List<Baddie> Baddies { get; set; }
+        public List<IBaddie> Baddies { get; set; }
         public Queue<IInterruptEvent> InterruptEvents;
         public List<Shot> Shots { get; set;}
         public int SpawnTimer { get; set; }
         public int Score { get; set; }
 
-        public StateManager(List<Baddie> baddies, Queue<IInterruptEvent> interruptEvents, List<Shot> shots, int spawnTimer, int score)
+        public StateManager(List<IBaddie> baddies, Queue<IInterruptEvent> interruptEvents, List<Shot> shots, int spawnTimer, int score)
         {
             Dude = new Dude(0, 0);
             Baddies = baddies;

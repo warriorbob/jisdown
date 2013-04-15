@@ -42,7 +42,7 @@ namespace dmg
             keyInfo = new ConsoleKeyInfo();
             newScreen = new ConsoleChar[CONSOLE_WIDTH, CONSOLE_HEIGHT];
             previousScreen = new ConsoleChar[CONSOLE_WIDTH, CONSOLE_HEIGHT];
-            
+
             InitializeScreenbuffers();
         }
 
@@ -233,7 +233,8 @@ namespace dmg
             {
                 for (int h = 0; h < CONSOLE_HEIGHT; h++)
                 {
-                    if (!newScreen[w, h].Matches(previousScreen[w, h]))
+                    if (!newScreen[w, h].Matches(previousScreen[w, h]) 
+                        || w == 0 && h == CONSOLE_HEIGHT - 1)   //Force the lower-left char where the console draws input
                     {
                         changes.Add(new ConsoleChar
                         {
@@ -259,7 +260,7 @@ namespace dmg
             //Copy newScreen to previousScreen
             for (int w = 0; w < CONSOLE_WIDTH; w++)
             {
-                for (int h = 0; h < CONSOLE_HEIGHT - 1; h++)
+                for (int h = 0; h < CONSOLE_HEIGHT; h++)
                 {
                     this.previousScreen[w, h] = newScreen[w, h];
                 }

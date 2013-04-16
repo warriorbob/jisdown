@@ -113,6 +113,10 @@ namespace dmg
                         GoPlaying(ref running);
                         break;
 
+                    case StateManager.GameStates.Dead:
+                        GoDead();
+                        break;
+
                     default:
                         break;
                 }
@@ -166,12 +170,24 @@ namespace dmg
                 //End if user is dead
                 if (stateManager.Dude.Alive == false)
                 {
-                    running = false;
+                    stateManager.CurrentGameState = StateManager.GameStates.Dead;
                 }
             }
 
             //Reinitialize input
             keyInfo = new ConsoleKeyInfo();
+        }
+
+        private void GoDead()
+        {
+            stateManager.CleanBaddies();
+            DrawDead();
+            GetInput();
+            if (keyInfo.Key == ConsoleKey.Enter)
+            {
+                ResetState(StateManager.GameStates.Playing);
+                stateManager.CurrentGameState = StateManager.GameStates.Playing;
+            }
         }
 
         //DRAWING ---------------------------------------------------------------------------------
@@ -217,10 +233,40 @@ namespace dmg
             
             DrawFromBuffers(newScreen, previousScreen);
             InitializeNewScreen();
-
-            //Reposition cursor in the lower-left after drawing so
-            //we can write status messages or whatever
             Console.SetCursorPosition(0, CONSOLE_HEIGHT-1);
+        }
+
+        private void DrawDead()
+        {
+            BackbufferMap();
+            BackbufferDude();
+            BackbufferBaddies();
+            BackbufferShots();
+            backbufferMessageBar();
+
+            string unfortunateNotification = "YOU ARE DEAD !";
+            int posLeft = (CONSOLE_WIDTH - unfortunateNotification.Length) / 2;
+            int posTop = 10;
+            for (int i = 0; i < unfortunateNotification.Length; i++)
+            {
+                newScreen[posLeft + i, posTop].BackgroundColor = ConsoleColor.Black;
+                newScreen[posLeft + i, posTop].ForegroundColor = ConsoleColor.Red;
+                newScreen[posLeft + i, posTop].Char = unfortunateNotification[i];
+            }
+
+            unfortunateNotification = "Press enter to restart";
+            posLeft = (CONSOLE_WIDTH - unfortunateNotification.Length) / 2;
+            posTop = 15;
+            for (int i = 0; i < unfortunateNotification.Length; i++)
+            {
+                newScreen[posLeft + i, posTop].BackgroundColor = ConsoleColor.Black;
+                newScreen[posLeft + i, posTop].ForegroundColor = ConsoleColor.Gray;
+                newScreen[posLeft + i, posTop].Char = unfortunateNotification[i];
+            }
+
+            DrawFromBuffers(newScreen, previousScreen);
+            InitializeNewScreen();
+            Console.SetCursorPosition(0, CONSOLE_HEIGHT - 1);
         }
 
         private void BackbufferMap()

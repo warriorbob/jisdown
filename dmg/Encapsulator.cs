@@ -35,7 +35,7 @@ namespace dmg
         public Encapsulator(int width, int height)
         {
             //Infrastructure
-            ResetState();
+            ResetState(StateManager.GameStates.Playing);
             GRID_WIDTH = width;
             GRID_HEIGHT = height;
             keyInfo = new ConsoleKeyInfo();
@@ -63,14 +63,15 @@ namespace dmg
             }
         }
 
-        private void ResetState()
+        private void ResetState(StateManager.GameStates newGameState = StateManager.GameStates.TitleScreen)
         {
             stateManager = new StateManager(
                 new List<IBaddie>(),
                 new Queue<IInterruptEvent>(),
                 new List<Shot>(),
                 0,
-                0
+                0,
+                newGameState
             );
 
             theMap = new Map(GRID_WIDTH, GRID_HEIGHT);
@@ -105,42 +106,57 @@ namespace dmg
             bool running = true;
             while (running == true)
             {
-                stateManager.CleanBaddies();
-                Draw();
-                if (stateManager.InterruptEvents.Count > 0)
+                switch(stateManager.CurrentGameState)
                 {
-                    stateManager.InterruptEvents.Dequeue().DoStuff(stateManager.InterruptEvents, stateManager, ref theMap);
+                    case StateManager.GameStates.TitleScreen:
+                        GetInput();
+                        if (keyInfo.Key == ConsoleKey.Enter)
+                        {
+                            stateManager.CurrentGameState = StateManager.GameStates.Playing;
+                        }
+                        break;
+
+                    case StateManager.GameStates.Playing:
+                        stateManager.CleanBaddies();
+                        Draw();
+                        if (stateManager.InterruptEvents.Count > 0)
+                        {
+                            stateManager.InterruptEvents.Dequeue().DoStuff(stateManager.InterruptEvents, stateManager, ref theMap);
+                        }
+                        else
+                        {
+                            GetInput();
+                            stateManager.UpdateState(ref running, keyInfo, GRID_WIDTH, GRID_HEIGHT, theMap);
+
+                            //Quit if the user presses Ctrl+Shift+q
+                            if (keyInfo.Key == ConsoleKey.Q
+                                && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Shift)
+                                && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Control))
+                            {
+                                running = false;
+                            }
+
+                            //Reset if the user presses Ctrl+Shift+p
+                            if (keyInfo.Key == ConsoleKey.P
+                                && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Shift)
+                                && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Control))
+                            {
+                                ResetState(StateManager.GameStates.Playing);
+                            }
+
+                            //End if user is dead
+                            if (stateManager.Dude.Alive == false)
+                            {
+                                running = false;
+                            }
+                        }
+
+                        //Reinitialize input
+                        keyInfo = new ConsoleKeyInfo();
+                        break;
+                    default:
+                        break;
                 }
-                else
-                {
-                    GetInput();
-                    stateManager.UpdateState(ref running, keyInfo, GRID_WIDTH, GRID_HEIGHT, theMap);
-
-                    //Quit if the user presses Ctrl+Shift+q
-                    if (keyInfo.Key == ConsoleKey.Q
-                        && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Shift)
-                        && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Control))
-                    {
-                        running = false;
-                    }
-
-                    //Reset if the user presses Ctrl+Shift+p
-                    if (keyInfo.Key == ConsoleKey.P
-                        && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Shift)
-                        && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Control))
-                    {
-                        ResetState();
-                    }
-
-                    //End if user is dead
-                    if (stateManager.Dude.Alive == false)
-                    {
-                        running = false;
-                    }
-                }
-
-                //Reinitialize input
-                keyInfo = new ConsoleKeyInfo();
             }
 
             //"Press any key to continue" when we're done

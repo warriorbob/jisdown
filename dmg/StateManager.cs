@@ -16,8 +16,11 @@ namespace dmg
         public List<Shot> Shots { get; set;}
         public int SpawnTimer { get; set; }
         public int Score { get; set; }
+        public GameStates CurrentGameState { get; set; }
 
-        public StateManager(List<IBaddie> baddies, Queue<IInterruptEvent> interruptEvents, List<Shot> shots, int spawnTimer, int score)
+        public enum GameStates { TitleScreen, Playing, Dead, Paused };
+
+        public StateManager(List<IBaddie> baddies, Queue<IInterruptEvent> interruptEvents, List<Shot> shots, int spawnTimer, int score, GameStates initialGameState = GameStates.TitleScreen)
         {
             Dude = new Dude(0, 0);
             Baddies = baddies;
@@ -25,6 +28,7 @@ namespace dmg
             Shots = shots;
             SpawnTimer = spawnTimer;
             Score = score;
+            CurrentGameState = initialGameState;
         }
 
         public void UpdateState(ref bool running, ConsoleKeyInfo keyInfo, int width, int height, Map map)

@@ -35,7 +35,7 @@ namespace dmg
         public Encapsulator(int width, int height)
         {
             //Infrastructure
-            ResetState(StateManager.GameStates.Playing);
+            ResetState(StateManager.GameStates.TitleScreen);
             GRID_WIDTH = width;
             GRID_HEIGHT = height;
             keyInfo = new ConsoleKeyInfo();
@@ -99,9 +99,6 @@ namespace dmg
         /// </summary>
         public void Go()
         {
-            //Draw initial state once outside of the loop
-            Draw();
-
             //Main loop
             bool running = true;
             while (running == true)
@@ -115,6 +112,7 @@ namespace dmg
                     case StateManager.GameStates.Playing:
                         GoPlaying(ref running);
                         break;
+
                     default:
                         break;
                 }
@@ -128,6 +126,7 @@ namespace dmg
 
         private void GoTitleScreen()
         {
+            DrawTitleScreen();
             GetInput();
             if (keyInfo.Key == ConsoleKey.Enter)
             {
@@ -138,7 +137,7 @@ namespace dmg
         private void GoPlaying(ref bool running)
         {
             stateManager.CleanBaddies();
-            Draw();
+            DrawPlaying();
             if (stateManager.InterruptEvents.Count > 0)
             {
                 stateManager.InterruptEvents.Dequeue().DoStuff(stateManager.InterruptEvents, stateManager, ref theMap);
@@ -176,10 +175,39 @@ namespace dmg
         }
 
         //DRAWING ---------------------------------------------------------------------------------
+
+        public void DrawTitleScreen()
+        {
+            string title = "J IS DOWN !!!!!";
+            int titleLeft = (CONSOLE_WIDTH - title.Length * 2) / 2;
+
+            for (int i = 0; i < title.Length; i++)
+            {
+                newScreen[titleLeft + 2 * i, 5].Char = title[i];
+            }
+
+            string subtitle = "Press Enter to begin";
+            int subtitleLeft = (CONSOLE_WIDTH - subtitle.Length) / 2;
+            for (int i = 0; i < subtitle.Length; i++)
+            {
+                newScreen[subtitleLeft + i, 7].Char = subtitle[i];
+            }
+
+            string protip = "Protip: 'j' is down.";
+            for (int i = 0; i < protip.Length; i++)
+            {
+                newScreen[i + 50, 24].ForegroundColor = ConsoleColor.DarkGray;
+                newScreen[i + 50, 24].Char = protip[i];
+            }
+
+            DrawFromBuffers(newScreen, previousScreen);
+            InitializeNewScreen();
+            Console.SetCursorPosition(0, CONSOLE_HEIGHT - 1);
+        }
         /// <summary>
         /// Draw all the things
         /// </summary>
-        public void Draw()
+        public void DrawPlaying()
         {
             BackbufferMap();
             BackbufferDude();
@@ -188,7 +216,6 @@ namespace dmg
             backbufferMessageBar();
             
             DrawFromBuffers(newScreen, previousScreen);
-
             InitializeNewScreen();
 
             //Reposition cursor in the lower-left after drawing so

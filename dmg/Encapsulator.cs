@@ -109,50 +109,11 @@ namespace dmg
                 switch(stateManager.CurrentGameState)
                 {
                     case StateManager.GameStates.TitleScreen:
-                        GetInput();
-                        if (keyInfo.Key == ConsoleKey.Enter)
-                        {
-                            stateManager.CurrentGameState = StateManager.GameStates.Playing;
-                        }
+                        GoTitleScreen();
                         break;
 
                     case StateManager.GameStates.Playing:
-                        stateManager.CleanBaddies();
-                        Draw();
-                        if (stateManager.InterruptEvents.Count > 0)
-                        {
-                            stateManager.InterruptEvents.Dequeue().DoStuff(stateManager.InterruptEvents, stateManager, ref theMap);
-                        }
-                        else
-                        {
-                            GetInput();
-                            stateManager.UpdateState(ref running, keyInfo, GRID_WIDTH, GRID_HEIGHT, theMap);
-
-                            //Quit if the user presses Ctrl+Shift+q
-                            if (keyInfo.Key == ConsoleKey.Q
-                                && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Shift)
-                                && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Control))
-                            {
-                                running = false;
-                            }
-
-                            //Reset if the user presses Ctrl+Shift+p
-                            if (keyInfo.Key == ConsoleKey.P
-                                && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Shift)
-                                && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Control))
-                            {
-                                ResetState(StateManager.GameStates.Playing);
-                            }
-
-                            //End if user is dead
-                            if (stateManager.Dude.Alive == false)
-                            {
-                                running = false;
-                            }
-                        }
-
-                        //Reinitialize input
-                        keyInfo = new ConsoleKeyInfo();
+                        GoPlaying(ref running);
                         break;
                     default:
                         break;
@@ -163,6 +124,55 @@ namespace dmg
             Console.SetCursorPosition(0, 24);
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.BackgroundColor = ConsoleColor.Black;
+        }
+
+        private void GoTitleScreen()
+        {
+            GetInput();
+            if (keyInfo.Key == ConsoleKey.Enter)
+            {
+                stateManager.CurrentGameState = StateManager.GameStates.Playing;
+            }
+        }
+
+        private void GoPlaying(ref bool running)
+        {
+            stateManager.CleanBaddies();
+            Draw();
+            if (stateManager.InterruptEvents.Count > 0)
+            {
+                stateManager.InterruptEvents.Dequeue().DoStuff(stateManager.InterruptEvents, stateManager, ref theMap);
+            }
+            else
+            {
+                GetInput();
+                stateManager.UpdateState(ref running, keyInfo, GRID_WIDTH, GRID_HEIGHT, theMap);
+
+                //Quit if the user presses Ctrl+Shift+q
+                if (keyInfo.Key == ConsoleKey.Q
+                    && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Shift)
+                    && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Control))
+                {
+                    running = false;
+                }
+
+                //Reset if the user presses Ctrl+Shift+p
+                if (keyInfo.Key == ConsoleKey.P
+                    && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Shift)
+                    && keyInfo.Modifiers.HasFlag(ConsoleModifiers.Control))
+                {
+                    ResetState(StateManager.GameStates.Playing);
+                }
+
+                //End if user is dead
+                if (stateManager.Dude.Alive == false)
+                {
+                    running = false;
+                }
+            }
+
+            //Reinitialize input
+            keyInfo = new ConsoleKeyInfo();
         }
 
         //DRAWING ---------------------------------------------------------------------------------

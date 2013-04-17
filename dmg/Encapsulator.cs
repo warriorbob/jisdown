@@ -194,7 +194,7 @@ namespace dmg
 
         public void DrawTitleScreen()
         {
-            string title = "J IS DOWN !!!!!";
+            string title = "((( J IS DOWN )))";
             int titleLeft = (CONSOLE_WIDTH - title.Length * 2) / 2;
 
             for (int i = 0; i < title.Length; i++)
@@ -256,7 +256,7 @@ namespace dmg
 
             unfortunateNotification = "Press enter to restart";
             posLeft = (CONSOLE_WIDTH - unfortunateNotification.Length) / 2;
-            posTop = 15;
+            posTop = 16;
             for (int i = 0; i < unfortunateNotification.Length; i++)
             {
                 newScreen[posLeft + i, posTop].BackgroundColor = ConsoleColor.Black;

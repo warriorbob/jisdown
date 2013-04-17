@@ -18,7 +18,7 @@ namespace dmg
 
         private int GRID_WIDTH = 80;
         private int GRID_HEIGHT = 24;
-        private const int INITIAL_BADDIE_COUNT = 10;
+        private const int INITIAL_BADDIE_COUNT = 0;
 
         private StateManager stateManager;
         private Map theMap;

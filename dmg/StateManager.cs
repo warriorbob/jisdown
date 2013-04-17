@@ -17,6 +17,7 @@ namespace dmg
         public int SpawnTimer { get; set; }
         public int Score { get; set; }
         public GameStates CurrentGameState { get; set; }
+        public SpawnManager spawnManager { get; set; }
 
         public enum GameStates { TitleScreen, Playing, Dead, Paused };
 
@@ -29,6 +30,7 @@ namespace dmg
             SpawnTimer = spawnTimer;
             Score = score;
             CurrentGameState = initialGameState;
+            spawnManager = new SpawnManager(0, 3);
         }
 
         public void UpdateState(ref bool running, ConsoleKeyInfo keyInfo, int width, int height, Map map)
@@ -44,7 +46,7 @@ namespace dmg
         private void SpawnBaddies(int width, int height)
         {
             Random rand = new Random();
-            if (SpawnTimer == 3)
+            if (spawnManager.IsReady)
             {
                 int newx, newy = 0;
                 do
@@ -54,12 +56,11 @@ namespace dmg
                 }
                 while (newx == Dude.XPos && newy == Dude.YPos);
 
-                Baddies.Add(new Baddie(newx, newy));
-                SpawnTimer = 0;
+                Baddies.Add(spawnManager.PopBaddie(newx, newy));
             }
             else
             {
-                SpawnTimer++;
+                spawnManager.Tick();
             }
         }
 

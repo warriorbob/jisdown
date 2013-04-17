@@ -53,6 +53,7 @@
     <Compile Include="Interrupt\ShotInterrupt.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpawnManager.cs" />
     <Compile Include="StateManager.cs" />
   </ItemGroup>
   <ItemGroup>

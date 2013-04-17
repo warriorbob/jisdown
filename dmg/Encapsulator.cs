@@ -234,7 +234,7 @@ namespace dmg
             DrawFromBuffers(newScreen, previousScreen);
             InitializeNewScreen();
             Console.SetCursorPosition(0, CONSOLE_HEIGHT-1);
-        }
+        } 
 
         private void DrawDead()
         {

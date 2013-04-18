@@ -16,7 +16,7 @@ namespace dmg
 
         public SpawnManager(int timer, int newThreshold)
         {
-            rand = new Random();
+            //rand = new Random();
             spawnTimer = timer;
             threshold = newThreshold;
         }
@@ -36,9 +36,9 @@ namespace dmg
 
         public IBaddie PopBaddie(int xPos, int yPos)
         {
-            return new Baddie(xPos, yPos);
             IsReady = false;
             spawnTimer = 0;
+            return new Baddie(xPos, yPos);
         }
     }
 }

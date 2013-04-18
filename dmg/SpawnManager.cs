@@ -23,6 +23,7 @@ namespace dmg
 
         public void Tick()
         {
+            spawnTimer++;
             if (spawnTimer >= threshold)
             {
                 IsReady = true;
@@ -31,7 +32,6 @@ namespace dmg
             {
                 IsReady = false;
             }
-            spawnTimer++;
         }
 
         public IBaddie PopBaddie(int xPos, int yPos)

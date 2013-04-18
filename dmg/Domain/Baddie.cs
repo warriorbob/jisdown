@@ -33,7 +33,7 @@ namespace dmg.Domain
         /// </summary>
         /// <param name="targetX">Target X coordinate</param>
         /// <param name="targetY">Target Y coordinate</param>
-        public void Chase(int targetX, int targetY)
+        public virtual void Chase(int targetX, int targetY)
         {
             int deltaX;
             int deltaY;
@@ -70,7 +70,7 @@ namespace dmg.Domain
             }
         }
 
-        public void Draw(ref ConsoleChar[,] screen, Map screenGrid)
+        public virtual void Draw(ref ConsoleChar[,] screen, Map screenGrid)
         {
             screen[XPos, YPos].BackgroundColor = screenGrid.Grid[XPos, YPos].BackgroundColor;
             screen[XPos, YPos].ForegroundColor = Color;
@@ -78,7 +78,7 @@ namespace dmg.Domain
         }
 
         //Blarg!!
-        public void Blarg(int fromX, int fromY, ref Map map)
+        public virtual void Blarg(int fromX, int fromY, ref Map map)
         {
             int xDirectionSign = Math.Sign(XPos - fromX);
             int yDirectionSign = Math.Sign(YPos - fromY);

@@ -38,7 +38,7 @@ namespace dmg
         {
             IsReady = false;
             spawnTimer = 0;
-            return new Baddie(xPos, yPos);
+            return new BigBaddie(xPos, yPos);
         }
     }
 }

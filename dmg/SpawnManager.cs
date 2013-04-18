@@ -16,7 +16,7 @@ namespace dmg
 
         public SpawnManager(int timer, int newThreshold)
         {
-            //rand = new Random();
+            rand = new Random();
             spawnTimer = timer;
             threshold = newThreshold;
         }
@@ -34,11 +34,23 @@ namespace dmg
             }
         }
 
-        public IBaddie PopBaddie(int xPos, int yPos)
+        public IBaddie PopBaddie(int x, int y)
         {
             IsReady = false;
             spawnTimer = 0;
-            return new BigBaddie(xPos, yPos);
+            int rng = rand.Next(3);
+            if (rng < 2)
+            {
+                return new Baddie(x, y);
+            }
+            else if (rng == 2)
+            {
+                return new BigBaddie(x, y);
+            }
+            else
+            {
+                throw new Exception("random number out of range");
+            }
         }
     }
 }

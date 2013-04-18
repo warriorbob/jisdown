@@ -166,12 +166,12 @@ namespace dmg
                 {
                     ResetState(StateManager.GameStates.Playing);
                 }
-
-                //End if user is dead
-                if (stateManager.Dude.Alive == false)
-                {
-                    stateManager.CurrentGameState = StateManager.GameStates.Dead;
-                }
+            }
+            
+            //End if user is dead
+            if (stateManager.Dude.Alive == false)
+            {
+                stateManager.CurrentGameState = StateManager.GameStates.Dead;
             }
 
             //Reinitialize input

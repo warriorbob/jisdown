@@ -62,6 +62,7 @@ namespace dmg.Interrupt
             else    //This is kind of a hack
             {
                 state.MoveBaddies();
+                state.EatBrains();
             }
         }
     }

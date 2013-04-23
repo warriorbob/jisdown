@@ -22,6 +22,7 @@ namespace dmg
 
         private StateManager stateManager;
         private Map theMap;
+        private Dictionary<String, int> highScores;
 
         private ConsoleKeyInfo keyInfo;
         public ConsoleChar[,] newScreen;
@@ -117,6 +118,11 @@ namespace dmg
                         GoDead();
                         break;
 
+                    
+                    case StateManager.GameStates.HighScores:
+                        GoHighScores();
+                        break;
+
                     default:
                         break;
                 }
@@ -126,6 +132,21 @@ namespace dmg
             Console.SetCursorPosition(0, 24);
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.BackgroundColor = ConsoleColor.Black;
+        }
+
+        private void GoHighScores()
+        {
+            DrawHighScores();
+            GetInput();
+            if (keyInfo.Key == ConsoleKey.Enter)
+            {
+                stateManager.CurrentGameState = StateManager.GameStates.Playing;
+            }
+        }
+
+        private void DrawHighScores()
+        {
+            throw new NotImplementedException();
         }
 
         private void GoTitleScreen()

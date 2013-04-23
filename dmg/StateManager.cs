@@ -19,7 +19,7 @@ namespace dmg
         public GameStates CurrentGameState { get; set; }
         public SpawnManager spawnManager { get; set; }
 
-        public enum GameStates { TitleScreen, Playing, Dead, Paused };
+        public enum GameStates { TitleScreen, Playing, Dead, Paused, HighScores };
 
         public StateManager(List<IBaddie> baddies, Queue<IInterruptEvent> interruptEvents, List<Shot> shots, int spawnTimer, int score, GameStates initialGameState = GameStates.TitleScreen)
         {

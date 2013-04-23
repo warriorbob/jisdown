@@ -64,7 +64,7 @@ namespace dmg
             }
         }
 
-        //Like Bang() but spawns a shot object and lets that determine the outcome
+        //Spawns a shot object and lets that determine the outcome
         public void Fire(ConsoleKeyInfo keyInfo, Map map, int width, int height)
         {
             if (InterruptEvents.Count > 0)

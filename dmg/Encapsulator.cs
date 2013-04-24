@@ -22,7 +22,7 @@ namespace dmg
 
         private StateManager stateManager;
         private Map theMap;
-        private Dictionary<String, int> highScores;
+        private List<Tuple<string, int>> highScores;
 
         private ConsoleKeyInfo keyInfo;
         public ConsoleChar[,] newScreen;
@@ -42,6 +42,9 @@ namespace dmg
             keyInfo = new ConsoleKeyInfo();
             newScreen = new ConsoleChar[CONSOLE_WIDTH, CONSOLE_HEIGHT];
             previousScreen = new ConsoleChar[CONSOLE_WIDTH, CONSOLE_HEIGHT];
+            highScores = new List<Tuple<string,int>>();
+
+            highScores.Add(new Tuple<string,int>("Testing", 390));
 
             InitializeScreenbuffers();
         }
@@ -117,7 +120,6 @@ namespace dmg
                     case StateManager.GameStates.Dead:
                         GoDead();
                         break;
-
                     
                     case StateManager.GameStates.HighScores:
                         GoHighScores();
@@ -142,11 +144,6 @@ namespace dmg
             {
                 stateManager.CurrentGameState = StateManager.GameStates.Playing;
             }
-        }
-
-        private void DrawHighScores()
-        {
-            throw new NotImplementedException();
         }
 
         private void GoTitleScreen()
@@ -207,7 +204,7 @@ namespace dmg
             if (keyInfo.Key == ConsoleKey.Enter)
             {
                 ResetState(StateManager.GameStates.Playing);
-                stateManager.CurrentGameState = StateManager.GameStates.Playing;
+                stateManager.CurrentGameState = StateManager.GameStates.HighScores;
             }
         }
 
@@ -283,6 +280,42 @@ namespace dmg
                 newScreen[posLeft + i, posTop].BackgroundColor = ConsoleColor.Black;
                 newScreen[posLeft + i, posTop].ForegroundColor = ConsoleColor.Gray;
                 newScreen[posLeft + i, posTop].Char = unfortunateNotification[i];
+            }
+
+            DrawFromBuffers(newScreen, previousScreen);
+            InitializeNewScreen();
+            Console.SetCursorPosition(0, CONSOLE_HEIGHT - 1);
+        }
+
+        private void DrawHighScores()
+        {
+            string title = "!!!  HIGH SCORES  !!!";
+            int titleLeft = (CONSOLE_WIDTH - title.Length * 2) / 2;
+
+            for (int i = 0; i < title.Length; i++)
+            {
+                newScreen[titleLeft + 2 * i, 2].ForegroundColor = ConsoleColor.DarkRed;
+                newScreen[titleLeft + 2 * i, 2].Char = title[i];
+            }
+
+            highScores.Sort((x, y) => x.Item2.CompareTo(y.Item2));
+
+            //Draw first high score
+            for (int scoreIndex = 0; scoreIndex < 1; scoreIndex++)
+            {
+                string highScoreDisplay = highScores[scoreIndex].Item1 + ":  " + highScores[scoreIndex].Item2.ToString();
+                int nameLeft = (CONSOLE_WIDTH - highScoreDisplay.Length) / 2;
+                for (int i = 0; i < highScoreDisplay.Length; i++)
+                {
+                    newScreen[nameLeft + i, 5 + scoreIndex * 2].ForegroundColor = ConsoleColor.White;
+                    newScreen[nameLeft + i, 5 + scoreIndex * 2].Char = highScoreDisplay[i];
+                }
+
+                for (int i = 0; i < highScoreDisplay.Length; i++)
+                {
+                    newScreen[nameLeft + i, 5 + scoreIndex * 2].ForegroundColor = ConsoleColor.White;
+                    newScreen[nameLeft + i, 5 + scoreIndex * 2].Char = highScoreDisplay[i];
+                }
             }
 
             DrawFromBuffers(newScreen, previousScreen);

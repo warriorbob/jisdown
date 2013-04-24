@@ -45,6 +45,7 @@ namespace dmg
             highScores = new List<Tuple<string,int>>();
 
             highScores.Add(new Tuple<string,int>("Testing", 390));
+            highScores.Add(new Tuple<string, int>("Higher", 410));
 
             InitializeScreenbuffers();
         }
@@ -289,7 +290,7 @@ namespace dmg
 
         private void DrawHighScores()
         {
-            string title = "!!!  HIGH SCORES  !!!";
+            string title = "HIGH SCORES";
             int titleLeft = (CONSOLE_WIDTH - title.Length * 2) / 2;
 
             for (int i = 0; i < title.Length; i++)
@@ -300,8 +301,8 @@ namespace dmg
 
             highScores.Sort((x, y) => x.Item2.CompareTo(y.Item2));
 
-            //Draw first high score
-            for (int scoreIndex = 0; scoreIndex < 1; scoreIndex++)
+            //Draw top 10 scores
+            for (int scoreIndex = 0; scoreIndex < highScores.Count && scoreIndex < 10; scoreIndex++)
             {
                 string highScoreDisplay = highScores[scoreIndex].Item1 + ":  " + highScores[scoreIndex].Item2.ToString();
                 int nameLeft = (CONSOLE_WIDTH - highScoreDisplay.Length) / 2;

@@ -204,11 +204,16 @@ namespace dmg
             stateManager.CleanBaddies();
             DrawDead();
             GetInput();
+            
             if (keyInfo.Key == ConsoleKey.Enter)
             {
                 highScoreManager.highScores.Add(new Tuple<string, int>(highScoreManager.Initials, stateManager.Score));
                 ResetState(StateManager.GameStates.Playing);
                 stateManager.CurrentGameState = StateManager.GameStates.HighScores;
+            }
+            else if (Char.IsLetterOrDigit(keyInfo.KeyChar))
+            {
+                highScoreManager.AddInitial(keyInfo.KeyChar);
             }
         }
 

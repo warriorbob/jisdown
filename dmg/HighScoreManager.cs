@@ -12,7 +12,15 @@ namespace dmg
         private int _cursorPosition;
         public int CursorPosition {
             get { return _cursorPosition; }  
-            set { _cursorPosition = value > 2 ? 2 : value; }
+            set 
+            {
+                if (value > 2)
+                    _cursorPosition = 2;
+                else if (value < 0)
+                    _cursorPosition = 0;
+                else
+                    _cursorPosition = value;
+            }
         }
         public string Initials { get; set; }
 
@@ -33,7 +41,7 @@ namespace dmg
             _cursorPosition = 0;
         }
 
-        internal void AddInitial(char newInital)
+        public void AddInitial(char newInital)
         {
             var newInitials = Initials.ToCharArray();
             newInitials[_cursorPosition] = newInital;
@@ -43,6 +51,18 @@ namespace dmg
                 Initials += c.ToString();
             }
             CursorPosition++;
+        }
+
+        public void BackUp()
+        {
+            var newInitials = Initials.ToCharArray();
+            newInitials[_cursorPosition] = '░';
+            Initials = "";
+            foreach (char c in newInitials)
+            {
+                Initials += c.ToString();
+            }
+            CursorPosition--;
         }
     }
 }

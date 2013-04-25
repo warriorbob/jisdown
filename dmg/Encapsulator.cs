@@ -44,10 +44,6 @@ namespace dmg
             previousScreen = new ConsoleChar[CONSOLE_WIDTH, CONSOLE_HEIGHT];
             highScoreManager = new HighScoreManager();
 
-            highScoreManager.highScores.Add(new Tuple<string,int>("Testing", 10));
-            highScoreManager.highScores.Add(new Tuple<string, int>("Higher", 45));
-            highScoreManager.highScores.Add(new Tuple<string, int>("Third", 2));
-
             InitializeScreenbuffers();
         }
 
@@ -192,7 +188,7 @@ namespace dmg
             if (stateManager.Dude.Alive == false)
             {
                 stateManager.CurrentGameState = StateManager.GameStates.Dead;
-                highScoreManager.CursorPosition = 0;
+                highScoreManager.ResetInitialsInput();
             }
 
             //Reinitialize input
@@ -214,6 +210,10 @@ namespace dmg
             else if (Char.IsLetterOrDigit(keyInfo.KeyChar))
             {
                 highScoreManager.AddInitial(keyInfo.KeyChar);
+            }
+            else if (keyInfo.Key == ConsoleKey.Backspace)
+            {
+                highScoreManager.BackUp();
             }
         }
 

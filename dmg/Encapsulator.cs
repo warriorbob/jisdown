@@ -21,8 +21,8 @@ namespace dmg
         private const int INITIAL_BADDIE_COUNT = 10;
 
         private StateManager stateManager;
+        private HighScoreManager highScoreManager;
         private Map theMap;
-        private List<Tuple<string, int>> highScores;
 
         private ConsoleKeyInfo keyInfo;
         public ConsoleChar[,] newScreen;
@@ -42,11 +42,11 @@ namespace dmg
             keyInfo = new ConsoleKeyInfo();
             newScreen = new ConsoleChar[CONSOLE_WIDTH, CONSOLE_HEIGHT];
             previousScreen = new ConsoleChar[CONSOLE_WIDTH, CONSOLE_HEIGHT];
-            highScores = new List<Tuple<string,int>>();
+            highScoreManager = new HighScoreManager();
 
-            highScores.Add(new Tuple<string,int>("Testing", 390));
-            highScores.Add(new Tuple<string, int>("Higher", 410));
-
+            highScoreManager.highScores.Add(new Tuple<string,int>("Testing", 390));
+            highScoreManager.highScores.Add(new Tuple<string, int>("Higher", 410));
+            highScoreManager.highScores.Add(new Tuple<string, int>("Third", 400));
             InitializeScreenbuffers();
         }
 
@@ -299,12 +299,13 @@ namespace dmg
                 newScreen[titleLeft + 2 * i, 2].Char = title[i];
             }
 
-            highScores.Sort((x, y) => x.Item2.CompareTo(y.Item2));
+            highScoreManager.highScores.Sort((x, y) => x.Item2.CompareTo(y.Item2));
+            highScoreManager.highScores.Reverse();
 
             //Draw top 10 scores
-            for (int scoreIndex = 0; scoreIndex < highScores.Count && scoreIndex < 10; scoreIndex++)
+            for (int scoreIndex = 0; scoreIndex < highScoreManager.highScores.Count && scoreIndex < 10; scoreIndex++)
             {
-                string highScoreDisplay = highScores[scoreIndex].Item1 + ":  " + highScores[scoreIndex].Item2.ToString();
+                string highScoreDisplay = highScoreManager.highScores[scoreIndex].Item1 + ":  " + highScoreManager.highScores[scoreIndex].Item2.ToString();
                 int nameLeft = (CONSOLE_WIDTH - highScoreDisplay.Length) / 2;
                 for (int i = 0; i < highScoreDisplay.Length; i++)
                 {

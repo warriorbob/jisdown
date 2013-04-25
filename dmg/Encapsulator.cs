@@ -44,9 +44,10 @@ namespace dmg
             previousScreen = new ConsoleChar[CONSOLE_WIDTH, CONSOLE_HEIGHT];
             highScoreManager = new HighScoreManager();
 
-            highScoreManager.highScores.Add(new Tuple<string,int>("Testing", 390));
-            highScoreManager.highScores.Add(new Tuple<string, int>("Higher", 410));
-            highScoreManager.highScores.Add(new Tuple<string, int>("Third", 400));
+            highScoreManager.highScores.Add(new Tuple<string,int>("Testing", 10));
+            highScoreManager.highScores.Add(new Tuple<string, int>("Higher", 45));
+            highScoreManager.highScores.Add(new Tuple<string, int>("Third", 2));
+
             InitializeScreenbuffers();
         }
 
@@ -191,6 +192,7 @@ namespace dmg
             if (stateManager.Dude.Alive == false)
             {
                 stateManager.CurrentGameState = StateManager.GameStates.Dead;
+                highScoreManager.CursorPosition = 0;
             }
 
             //Reinitialize input
@@ -204,6 +206,7 @@ namespace dmg
             GetInput();
             if (keyInfo.Key == ConsoleKey.Enter)
             {
+                highScoreManager.highScores.Add(new Tuple<string, int>(highScoreManager.Initials, stateManager.Score));
                 ResetState(StateManager.GameStates.Playing);
                 stateManager.CurrentGameState = StateManager.GameStates.HighScores;
             }
@@ -265,7 +268,7 @@ namespace dmg
 
             string unfortunateNotification = "YOU ARE DEAD !";
             int posLeft = (CONSOLE_WIDTH - unfortunateNotification.Length) / 2;
-            int posTop = 10;
+            int posTop = 8;
             for (int i = 0; i < unfortunateNotification.Length; i++)
             {
                 newScreen[posLeft + i, posTop].BackgroundColor = ConsoleColor.Black;
@@ -273,9 +276,30 @@ namespace dmg
                 newScreen[posLeft + i, posTop].Char = unfortunateNotification[i];
             }
 
-            unfortunateNotification = "Press enter to restart";
+            unfortunateNotification = "Enter your initials:";
             posLeft = (CONSOLE_WIDTH - unfortunateNotification.Length) / 2;
-            posTop = 16;
+            posTop = 10;
+            for (int i = 0; i < unfortunateNotification.Length; i++)
+            {
+                newScreen[posLeft + i, posTop].BackgroundColor = ConsoleColor.Black;
+                newScreen[posLeft + i, posTop].ForegroundColor = ConsoleColor.Gray;
+                newScreen[posLeft + i, posTop].Char = unfortunateNotification[i];
+            }
+
+            //Draw initials
+            unfortunateNotification = highScoreManager.Initials;
+            posLeft = (CONSOLE_WIDTH - unfortunateNotification.Length) / 2;
+            posTop = 13;
+            for (int i = 0; i < unfortunateNotification.Length; i++)
+            {
+                newScreen[posLeft + i, posTop].BackgroundColor = ConsoleColor.Black;
+                newScreen[posLeft + i, posTop].ForegroundColor = ConsoleColor.Gray;
+                newScreen[posLeft + i, posTop].Char = unfortunateNotification[i];
+            }
+            
+            unfortunateNotification = "Press enter to submit";
+            posLeft = (CONSOLE_WIDTH - unfortunateNotification.Length) / 2;
+            posTop = 19;
             for (int i = 0; i < unfortunateNotification.Length; i++)
             {
                 newScreen[posLeft + i, posTop].BackgroundColor = ConsoleColor.Black;

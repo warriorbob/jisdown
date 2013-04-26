@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleChar.cs" />
+    <Compile Include="Domain\AcidSlime.cs" />
     <Compile Include="Domain\BigBaddie.cs" />
     <Compile Include="Domain\Dude.cs" />
     <Compile Include="Domain\Baddie.cs" />

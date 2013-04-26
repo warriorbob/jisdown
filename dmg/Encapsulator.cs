@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using dmg.Domain;
 using dmg.Interrupt;
+using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace dmg
 {
@@ -28,6 +30,8 @@ namespace dmg
         public ConsoleChar[,] newScreen;
         public ConsoleChar[,] previousScreen;
 
+        private string protip;  //This should probably be scoped somewhere else.
+
         /// <summary>
         /// Constructor. Sets up infrastructure data and initial state.
         /// </summary>
@@ -43,6 +47,11 @@ namespace dmg
             newScreen = new ConsoleChar[CONSOLE_WIDTH, CONSOLE_HEIGHT];
             previousScreen = new ConsoleChar[CONSOLE_WIDTH, CONSOLE_HEIGHT];
             highScoreManager = new HighScoreManager();
+
+            string[] tips = Properties.Resources.protips.Split('\n');
+            Random rand = new Random();
+            protip = tips[rand.Next(tips.Count())];
+            protip = Regex.Replace(protip, "\r", "");
 
             InitializeScreenbuffers();
         }
@@ -236,11 +245,11 @@ namespace dmg
                 newScreen[subtitleLeft + i, 7].Char = subtitle[i];
             }
 
-            string protip = "Protip: 'j' is down.";
+            int protipLeft = CONSOLE_WIDTH - protip.Length - 10;
             for (int i = 0; i < protip.Length; i++)
             {
-                newScreen[i + 50, 24].ForegroundColor = ConsoleColor.DarkGray;
-                newScreen[i + 50, 24].Char = protip[i];
+                newScreen[i + protipLeft, 24].ForegroundColor = ConsoleColor.DarkGray;
+                newScreen[i + protipLeft, 24].Char = protip[i];
             }
 
             DrawFromBuffers(newScreen, previousScreen);

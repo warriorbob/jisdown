@@ -1,4 +1,4 @@
-Protip: 'j' is down.
+﻿Protip: 'j' is down.
 The game of creative murder.
 This text is grey so you might miss it.
 Reticulating splines....

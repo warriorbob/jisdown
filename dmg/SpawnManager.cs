@@ -38,14 +38,18 @@ namespace dmg
         {
             IsReady = false;
             spawnTimer = 0;
-            int rng = rand.Next(3);
+            int rng = rand.Next(100);
             if (rng < 2)
             {
-                return new Baddie(x, y);
+                return new AcidSlime(x, y);
             }
-            else if (rng == 2)
+            else if (rng < 34)
             {
                 return new BigBaddie(x, y);
+            }
+            else if (rng < 100)
+            {
+                return new Baddie(x, y);
             }
             else
             {

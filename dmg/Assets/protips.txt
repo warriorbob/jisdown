@@ -3,3 +3,8 @@ The game of creative murder.
 This text is grey so you might miss it.
 Reticulating splines....
 Seriously, enter is the only key that does anything.
+You're going to die.
+Trapped in a message factory, send help
+You take my life, but I'll take yours too
+You have made a terrible mistake.
+The game has changed.

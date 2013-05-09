@@ -246,7 +246,8 @@ namespace dmg
                 newScreen[subtitleLeft + i, 7].Char = subtitle[i];
             }
 
-            int protipLeft = CONSOLE_WIDTH - protip.Length - 6;
+            int protipLeft = CONSOLE_WIDTH - protip.Length - 10;
+
             for (int i = 0; i < protip.Length; i++)
             {
                 newScreen[i + protipLeft, 24].ForegroundColor = ConsoleColor.DarkGray;

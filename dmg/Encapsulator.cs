@@ -147,6 +147,7 @@ namespace dmg
         private void GoHighScores()
         {
             DrawHighScores();
+            highScoreManager.TopTenToFile();
             GetInput();
             if (keyInfo.Key == ConsoleKey.Enter)
             {

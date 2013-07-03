@@ -32,6 +32,7 @@ namespace dmg
         public HighScoreManager()
         {
             highScores = new List<Tuple<string, int>>();
+            ReadFromFile();
             ResetInitialsInput();
         }
 
@@ -74,6 +75,34 @@ namespace dmg
         {
             highScores.Sort((x, y) => x.Item2.CompareTo(y.Item2));
             highScores.Reverse();
+        }
+
+        public void TopTenToFile()
+        {
+            List<string> linesOut = new List<string>();
+            foreach(Tuple<string, int> score in highScores.Take(10))
+            {
+                linesOut.Add(score.Item1 + "," + score.Item2);
+            }
+
+            File.WriteAllLines(HIGHSCORE_FILE_NAME, linesOut.ToArray());
+        }
+
+        public void ReadFromFile()
+        {
+            if (File.Exists(HIGHSCORE_FILE_NAME))
+            {
+                string[] linesIn = File.ReadAllLines(HIGHSCORE_FILE_NAME);
+                foreach (string line in linesIn)
+                {
+                    string [] splitScore = line.Split(',');
+                    string initials = splitScore[0];
+                    int score;
+                    int.TryParse(splitScore[1], out score);
+
+                    highScores.Add(new Tuple<string, int>(initials, score));
+                }
+            }
         }
     }
 }

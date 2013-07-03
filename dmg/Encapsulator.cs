@@ -339,8 +339,7 @@ namespace dmg
                 newScreen[titleLeft + 2 * i, 2].Char = title[i];
             }
 
-            highScoreManager.highScores.Sort((x, y) => x.Item2.CompareTo(y.Item2));
-            highScoreManager.highScores.Reverse();
+            highScoreManager.SortHighScores();
 
             //Draw top 10 scores
             for (int scoreIndex = 0; scoreIndex < highScoreManager.highScores.Count && scoreIndex < 10; scoreIndex++)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,11 @@ namespace dmg
             }
         }
         public string Initials { get; set; }
+        private const string HIGHSCORE_FILE_NAME = "topten.lst";
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public HighScoreManager()
         {
             highScores = new List<Tuple<string, int>>();
@@ -63,6 +68,12 @@ namespace dmg
                 Initials += c.ToString();
             }
             CursorPosition--;
+        }
+
+        public void SortHighScores()
+        {
+            highScores.Sort((x, y) => x.Item2.CompareTo(y.Item2));
+            highScores.Reverse();
         }
     }
 }

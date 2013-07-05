@@ -224,7 +224,7 @@ namespace dmg
             }
             else if (keyInfo.Key == ConsoleKey.Backspace)
             {
-                highScoreManager.BackUp();
+                highScoreManager.BackUpCursor();
             }
         }
 

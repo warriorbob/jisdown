@@ -59,7 +59,7 @@ namespace dmg
             CursorPosition++;
         }
 
-        public void BackUp()
+        public void BackUpCursor()
         {
             var newInitials = Initials.ToCharArray();
             newInitials[_cursorPosition] = '░';

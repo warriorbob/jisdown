@@ -73,6 +73,7 @@ namespace dmg
 
         public void SortHighScores()
         {
+            highScores.Reverse();   //Reversing before the sort keeps same-score names in the same order
             highScores.Sort((x, y) => x.Item2.CompareTo(y.Item2));
             highScores.Reverse();
         }

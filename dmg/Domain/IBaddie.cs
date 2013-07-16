@@ -16,6 +16,6 @@ namespace dmg.Domain
 
         void Chase(int targetX, int targetY);
         void Draw(ref ConsoleChar[,] screen, Map screengrid);
-        void Blarg(int fromX, int fromY, ref Map map);
+        void Blarg(int fromX, int fromY, Map map);
     }
 }

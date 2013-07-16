@@ -44,5 +44,17 @@ namespace dmg.Domain
                 }
             }
         }
+
+        public void PaintBackground(int x, int y, ConsoleColor color)
+        {
+            if (x >= 0 && x < Width && y >= 0 && y < Height)
+                Grid[x, y].BackgroundColor = color;
+        }
+
+        public void PaintForeground(int x, int y, ConsoleColor color)
+        {
+            if (x >= 0 && x < Width && y >= 0 && y < Height)
+                Grid[x, y].ForegroundColor = color;
+        }
     }
 }

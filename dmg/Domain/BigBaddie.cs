@@ -20,9 +20,9 @@ namespace dmg.Domain
             Wait = WaitBase;
         }
 
-        public override void Blarg(int fromX, int fromY, ref Map map)
+        public override void Blarg(int fromX, int fromY, Map map)
         {
-            base.Blarg(fromX, fromY, ref map);
+            base.Blarg(fromX, fromY, map);
             Alive = (--Life > 0);
             if (Life == 1)
             {

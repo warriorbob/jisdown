@@ -37,7 +37,7 @@ namespace dmg.Interrupt
                 {
                     if(baddie.XPos == shot.XPos && baddie.YPos == shot.YPos)
                     {
-                        baddie.Blarg(state.Dude.XPos,state.Dude.YPos, ref map);
+                        baddie.Blarg(state.Dude.XPos,state.Dude.YPos, map);
                         shot.Alive = false;
                         state.Score++;
                         break;

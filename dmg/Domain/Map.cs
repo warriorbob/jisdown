@@ -12,6 +12,8 @@ namespace dmg.Domain
     public class Map
     {
         public Tile[,] Grid;
+        public int Width { get { return Grid.GetLength(0); } }
+        public int Height { get { return Grid.GetLength(1); } }
 
         /// <summary>
         /// Constructor

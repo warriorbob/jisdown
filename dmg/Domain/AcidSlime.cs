@@ -17,7 +17,7 @@ namespace dmg.Domain
             Life = 20;
         }
 
-        public override void Blarg(int fromX, int fromY, Map map)
+        public override void Blarg(int fromX, int fromY, ref Map map)
         {
             Alive = (--Life > 0);
         }

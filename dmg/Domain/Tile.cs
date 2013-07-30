@@ -9,9 +9,11 @@ namespace dmg.Domain
     public class Tile
     {
         public char Char { get; set; }
-        public TileStain[] Stains { get; set; }
+        public List<TileStain> Stains { get; set; }
         private ConsoleColor defaultBackgroundColor;
         private ConsoleColor defaultForegroundColor;
+        
+        //TODO: Latest stain color, if any, reported in place of default colors
         public ConsoleColor BackgroundColor 
         { 
             get { return defaultBackgroundColor; }

@@ -27,7 +27,7 @@ namespace dmg.Domain
             {
                 for (int h = 0; h < height; h++)
                 {
-                    Grid[w, h] = new Tile {Char = '.', BackgroundColor = ConsoleColor.Black, ForegroundColor = ConsoleColor.DarkGray};
+                    Grid[w, h] = new Tile('.', ConsoleColor.Black, ConsoleColor.DarkGray);
                 }
             }
         }
@@ -45,13 +45,13 @@ namespace dmg.Domain
             }
         }
 
-        public void PaintBackground(int x, int y, ConsoleColor color)
+        public void StainBackground(int x, int y, ConsoleColor color)
         {
             if (x >= 0 && x < Width && y >= 0 && y < Height)
                 Grid[x, y].BackgroundColor = color;
         }
 
-        public void PaintForeground(int x, int y, ConsoleColor color)
+        public void StainForeground(int x, int y, ConsoleColor color)
         {
             if (x >= 0 && x < Width && y >= 0 && y < Height)
                 Grid[x, y].ForegroundColor = color;

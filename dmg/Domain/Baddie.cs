@@ -78,19 +78,19 @@ namespace dmg.Domain
         }
 
         //Blarg!!
-        public virtual void Blarg(int fromX, int fromY, Map map)
+        public virtual void Blarg(int fromX, int fromY, ref Map map)
         {
             int xDirectionSign = Math.Sign(XPos - fromX);
             int yDirectionSign = Math.Sign(YPos - fromY);
 
-            map.PaintBackground(XPos, YPos, ConsoleColor.Red); // Baddie location
-            map.PaintBackground(XPos + xDirectionSign, YPos + yDirectionSign, ConsoleColor.DarkRed); //Right next
-            map.PaintForeground(XPos + xDirectionSign, YPos + yDirectionSign, ConsoleColor.Red); //Right next foreground
-            map.PaintForeground(XPos + 2 * xDirectionSign, YPos + 2 * yDirectionSign, ConsoleColor.DarkRed); //Right next next
-            map.PaintBackground(XPos + xDirectionSign + yDirectionSign, YPos + yDirectionSign + xDirectionSign, ConsoleColor.DarkRed); //one side
-            map.PaintBackground(XPos + xDirectionSign - yDirectionSign, YPos + yDirectionSign - xDirectionSign, ConsoleColor.DarkRed); //other side
-            map.PaintForeground(XPos + 2 * xDirectionSign + yDirectionSign, YPos + 2 * yDirectionSign + xDirectionSign, ConsoleColor.DarkRed); //2 out, one side
-            map.PaintForeground(XPos + 2 * xDirectionSign - yDirectionSign, YPos + 2 * yDirectionSign - xDirectionSign, ConsoleColor.DarkRed); //2 out, other side 
+            map.StainBackground(XPos, YPos, ConsoleColor.Red); // Baddie location
+            map.StainBackground(XPos + xDirectionSign, YPos + yDirectionSign, ConsoleColor.DarkRed); //Right next
+            map.StainForeground(XPos + xDirectionSign, YPos + yDirectionSign, ConsoleColor.Red); //Right next foreground
+            map.StainForeground(XPos + 2 * xDirectionSign, YPos + 2 * yDirectionSign, ConsoleColor.DarkRed); //Right next next
+            map.StainBackground(XPos + xDirectionSign + yDirectionSign, YPos + yDirectionSign + xDirectionSign, ConsoleColor.DarkRed); //one side
+            map.StainBackground(XPos + xDirectionSign - yDirectionSign, YPos + yDirectionSign - xDirectionSign, ConsoleColor.DarkRed); //other side
+            map.StainForeground(XPos + 2 * xDirectionSign + yDirectionSign, YPos + 2 * yDirectionSign + xDirectionSign, ConsoleColor.DarkRed); //2 out, one side
+            map.StainForeground(XPos + 2 * xDirectionSign - yDirectionSign, YPos + 2 * yDirectionSign - xDirectionSign, ConsoleColor.DarkRed); //2 out, other side 
 
             Alive = false;
         }

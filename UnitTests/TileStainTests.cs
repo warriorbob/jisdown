@@ -9,7 +9,7 @@ using dmg.Domain;
 namespace UnitTests
 {
     [TestFixture]
-    public class TileStainTest
+    public class TileStainTests
     {
         [Test]
         public void TileStainConstructs()

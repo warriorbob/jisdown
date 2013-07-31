@@ -10,8 +10,10 @@ namespace dmg.Domain
     {
         public ConsoleColor HighColor { get; set; }
         public ConsoleColor LowColor { get; set; }
+        public int Age { get; set; }
+        private Dictionary<int, int> AgeThresholds; //How long each level lasts before decaying
         private int stainLevel;
-        public int StainLevel
+        public int StainLevel   //Should be constrained to [0-3]
         {
             get { return stainLevel; }
             set 
@@ -36,6 +38,17 @@ namespace dmg.Domain
             HighColor = highColor;
             LowColor = lowColor;
             StainLevel = stainLevel;
+            Age = 0;
+            AgeThresholds = new Dictionary<int,int>();
+            AgeThresholds.Add(0, 5);
+            AgeThresholds.Add(1, 7);
+            AgeThresholds.Add(2, 10);
+            AgeThresholds.Add(3, 25);
+        }
+
+        public ConsoleColor ResultantBackgroundColor()
+        {
+            throw new NotImplementedException();
         }
     }
 }

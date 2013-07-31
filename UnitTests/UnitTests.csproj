@@ -42,6 +42,13 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TileStainTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\dmg\dmg.csproj">
+      <Project>{324d02cb-8058-4b41-b40e-4db8f2839b5f}</Project>
+      <Name>dmg</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

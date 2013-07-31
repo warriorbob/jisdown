@@ -10,26 +10,26 @@ namespace dmg.Domain
     {
         public char Char { get; set; }
         public List<TileStain> Stains { get; set; }
-        private ConsoleColor defaultBackgroundColor;
-        private ConsoleColor defaultForegroundColor;
+        public ConsoleColor DefaultBackgroundColor;
+        public ConsoleColor DefaultForegroundColor;
         
         //TODO: Latest stain color, if any, reported in place of default colors
         public ConsoleColor BackgroundColor 
         { 
-            get { return defaultBackgroundColor; }
-            set { defaultBackgroundColor = value; }
+            get { return DefaultBackgroundColor; }
+            set { DefaultBackgroundColor = value; }
         }
         public ConsoleColor ForegroundColor
         {
-            get { return defaultForegroundColor; }
-            set { defaultForegroundColor = value; }
+            get { return DefaultForegroundColor; }
+            set { DefaultForegroundColor = value; }
         }
 
         public Tile(char initChar, ConsoleColor defaultBackColor, ConsoleColor defaultForeColor)
         {
             Char = initChar;
-            defaultBackgroundColor = defaultBackColor;
-            defaultForegroundColor = defaultForeColor;
+            DefaultBackgroundColor = defaultBackColor;
+            DefaultForegroundColor = defaultForeColor;
         }
     }
 }

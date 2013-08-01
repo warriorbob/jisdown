@@ -38,7 +38,10 @@ namespace dmg.Domain
 
         public void AddStain(TileStain ts)
         {
-            Stain = ts;
+            if (Stain == null)
+                Stain = ts;
+            else if (ts.StainLevel >= Stain.StainLevel)
+                Stain = ts;
         }
     }
 }

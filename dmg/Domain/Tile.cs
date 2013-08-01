@@ -40,10 +40,5 @@ namespace dmg.Domain
         {
             Stain = ts;
         }
-
-        public void AddStain(ConsoleColor highColor, ConsoleColor lowColor, int stainLevel)
-        {
-            Stain = new TileStain(highColor, lowColor, stainLevel);
-        }
     }
 }

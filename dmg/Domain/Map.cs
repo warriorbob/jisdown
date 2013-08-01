@@ -56,5 +56,11 @@ namespace dmg.Domain
             if (x >= 0 && x < Width && y >= 0 && y < Height)
                 Grid[x, y].ForegroundColor = color;
         }
+
+        public void StainTile(int x, int y, TileStain ts, int stainLevel)
+        {
+            if (x >= 0 && x < Width && y >= 0 && y < Height)
+                Grid[x, y].AddStain(ts);
+        }
     }
 }

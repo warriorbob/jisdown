@@ -44,6 +44,7 @@
     <Compile Include="ConsoleChar.cs" />
     <Compile Include="Domain\AcidSlime.cs" />
     <Compile Include="Domain\BigBaddie.cs" />
+    <Compile Include="Domain\RedStain.cs" />
     <Compile Include="Domain\Dude.cs" />
     <Compile Include="Domain\Baddie.cs" />
     <Compile Include="Domain\IBaddie.cs" />

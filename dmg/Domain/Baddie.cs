@@ -119,26 +119,31 @@ namespace dmg.Domain
             }
             else
             {
-                map.StainTile(XPos, YPos, new RedStain(2)); // Baddie location
-                map.StainTile(XPos + yDirectionSign, YPos + xDirectionSign, new RedStain(0)); // side
-                map.StainTile(XPos - yDirectionSign, YPos - xDirectionSign, new RedStain(0)); // other side
-                map.StainTile(XPos + xDirectionSign, YPos + yDirectionSign, new RedStain(2)); //Right next
-                map.StainTile(XPos + 2 * xDirectionSign, YPos + 2 * yDirectionSign, new RedStain(3)); //two out
-                map.StainTile(XPos + xDirectionSign + yDirectionSign, YPos + yDirectionSign + xDirectionSign, new RedStain(3)); //one out, side
-                map.StainTile(XPos + xDirectionSign - yDirectionSign, YPos + yDirectionSign - xDirectionSign, new RedStain(3)); //one out, other side
-                map.StainTile(XPos + 2 * xDirectionSign + yDirectionSign, YPos + 2 * yDirectionSign + xDirectionSign, new RedStain(2)); //2 out, one side
-                map.StainTile(XPos + 2 * xDirectionSign - yDirectionSign, YPos + 2 * yDirectionSign - xDirectionSign, new RedStain(2)); //2 out, other side 
-                map.StainTile(XPos + 3 * xDirectionSign, YPos + 3 * yDirectionSign, new RedStain(1)); //3 out
-                map.StainTile(XPos + 3 * xDirectionSign + 2 * yDirectionSign, YPos + 3 * yDirectionSign + 2 * xDirectionSign, new RedStain(1)); //3 out, 2 side
-                map.StainTile(XPos + 3 * xDirectionSign - 2 * yDirectionSign, YPos + 3 * yDirectionSign - 2 * xDirectionSign, new RedStain(1)); //3 out, 2 other side
-                map.StainTile(XPos + 3 * xDirectionSign + yDirectionSign, YPos + 3 * yDirectionSign + xDirectionSign, new RedStain(0)); //3 out, side
-                map.StainTile(XPos + 3 * xDirectionSign - yDirectionSign, YPos + 3 * yDirectionSign - xDirectionSign, new RedStain(0)); //3 out, other side
-                map.StainTile(XPos + 4 * xDirectionSign, YPos + 4 * yDirectionSign, new RedStain(0)); // 4 out
-                map.StainTile(XPos + 4 * xDirectionSign + yDirectionSign, YPos + 4 * yDirectionSign + xDirectionSign, new RedStain(0)); //4 out, side
-                map.StainTile(XPos + 4 * xDirectionSign - yDirectionSign, YPos + 4 * yDirectionSign - xDirectionSign, new RedStain(0)); //4 out, other side
-                map.StainTile(XPos + 5 * xDirectionSign, YPos + 5 * yDirectionSign, new RedStain(0)); // 5 out
+                Bigsplode(map, xDirectionSign, yDirectionSign);
             }
             Alive = false;
+        }
+
+        protected void Bigsplode(Map map, int xDirectionSign, int yDirectionSign)
+        {
+            map.StainTile(XPos, YPos, new RedStain(2)); // Baddie location
+            map.StainTile(XPos + yDirectionSign, YPos + xDirectionSign, new RedStain(0)); // side
+            map.StainTile(XPos - yDirectionSign, YPos - xDirectionSign, new RedStain(0)); // other side
+            map.StainTile(XPos + xDirectionSign, YPos + yDirectionSign, new RedStain(2)); //Right next
+            map.StainTile(XPos + 2 * xDirectionSign, YPos + 2 * yDirectionSign, new RedStain(3)); //two out
+            map.StainTile(XPos + xDirectionSign + yDirectionSign, YPos + yDirectionSign + xDirectionSign, new RedStain(3)); //one out, side
+            map.StainTile(XPos + xDirectionSign - yDirectionSign, YPos + yDirectionSign - xDirectionSign, new RedStain(3)); //one out, other side
+            map.StainTile(XPos + 2 * xDirectionSign + yDirectionSign, YPos + 2 * yDirectionSign + xDirectionSign, new RedStain(2)); //2 out, one side
+            map.StainTile(XPos + 2 * xDirectionSign - yDirectionSign, YPos + 2 * yDirectionSign - xDirectionSign, new RedStain(2)); //2 out, other side 
+            map.StainTile(XPos + 3 * xDirectionSign, YPos + 3 * yDirectionSign, new RedStain(1)); //3 out
+            map.StainTile(XPos + 3 * xDirectionSign + 2 * yDirectionSign, YPos + 3 * yDirectionSign + 2 * xDirectionSign, new RedStain(1)); //3 out, 2 side
+            map.StainTile(XPos + 3 * xDirectionSign - 2 * yDirectionSign, YPos + 3 * yDirectionSign - 2 * xDirectionSign, new RedStain(1)); //3 out, 2 other side
+            map.StainTile(XPos + 3 * xDirectionSign + yDirectionSign, YPos + 3 * yDirectionSign + xDirectionSign, new RedStain(0)); //3 out, side
+            map.StainTile(XPos + 3 * xDirectionSign - yDirectionSign, YPos + 3 * yDirectionSign - xDirectionSign, new RedStain(0)); //3 out, other side
+            map.StainTile(XPos + 4 * xDirectionSign, YPos + 4 * yDirectionSign, new RedStain(0)); // 4 out
+            map.StainTile(XPos + 4 * xDirectionSign + yDirectionSign, YPos + 4 * yDirectionSign + xDirectionSign, new RedStain(0)); //4 out, side
+            map.StainTile(XPos + 4 * xDirectionSign - yDirectionSign, YPos + 4 * yDirectionSign - xDirectionSign, new RedStain(0)); //4 out, other side
+            map.StainTile(XPos + 5 * xDirectionSign, YPos + 5 * yDirectionSign, new RedStain(0)); // 5 out
         }
     }
 }

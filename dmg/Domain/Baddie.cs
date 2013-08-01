@@ -83,7 +83,7 @@ namespace dmg.Domain
             int xDirectionSign = Math.Sign(XPos - fromX);
             int yDirectionSign = Math.Sign(YPos - fromY);
 
-            map.StainBackground(XPos, YPos, ConsoleColor.Red); // Baddie location
+            map.StainTile(XPos, YPos, new RedStain(3)); // Baddie location
             map.StainBackground(XPos + xDirectionSign, YPos + yDirectionSign, ConsoleColor.DarkRed); //Right next
             map.StainForeground(XPos + xDirectionSign, YPos + yDirectionSign, ConsoleColor.Red); //Right next foreground
             map.StainForeground(XPos + 2 * xDirectionSign, YPos + 2 * yDirectionSign, ConsoleColor.DarkRed); //Right next next

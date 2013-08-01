@@ -48,12 +48,47 @@ namespace dmg.Domain
 
         public ConsoleColor ResultantBackgroundColor(ConsoleColor defaultColor)
         {
-            throw new NotImplementedException();
+            if (StainLevel == 3)
+            {
+                return HighColor;
+            }
+            else if (StainLevel > 0 && StainLevel < 3)
+            {
+                return LowColor;
+            }
+            else if (StainLevel == 0)
+            {
+                return defaultColor;
+            }
+            else
+            {
+                throw new Exception("No back color specified for stain level " + StainLevel);
+            }
+
         }
 
         public ConsoleColor ResultantForegroundColor(ConsoleColor defaultColor)
         {
-            throw new NotImplementedException();
+            if (StainLevel == 3)
+            {
+                return defaultColor;
+            }
+            else if (StainLevel == 2)
+            {
+                return HighColor;
+            }
+            else if (StainLevel == 1)
+            {
+                return defaultColor;
+            }
+            else if (StainLevel == 0)
+            {
+                return LowColor;
+            }
+            else
+            {
+                throw new Exception("No fore color specified for stain level " + StainLevel);
+            }
         }
     }
 }

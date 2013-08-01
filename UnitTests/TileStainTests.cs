@@ -39,5 +39,23 @@ namespace UnitTests
             ts.StainLevel = 50;
             Assert.AreEqual(ts.StainLevel, 3);
         }
+
+        [Test]
+        public void InitTurnsUntilDecay()
+        {
+            TileStain ts = new TileStain(ConsoleColor.Red, ConsoleColor.DarkRed, 1);
+            Assert.AreEqual(ts.TurnsUntilDecay, 10);
+        }
+
+        [Test]
+        public void ChangingLevelResetsTurnsUntilDecay()
+        {
+            TileStain ts = new TileStain(ConsoleColor.Red, ConsoleColor.DarkRed, 1);
+            Assert.AreEqual(ts.TurnsUntilDecay, 10);
+            ts.StainLevel = 0;
+            Assert.AreEqual(ts.TurnsUntilDecay, 20);
+            ts.StainLevel = 5;
+            Assert.AreEqual(ts.TurnsUntilDecay, 5);
+        }
     }
 }

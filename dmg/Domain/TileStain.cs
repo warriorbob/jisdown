@@ -30,6 +30,7 @@ namespace dmg.Domain
                 {
                     stainLevel = value;
                 }
+                TurnsUntilDecay = AgeThresholds[stainLevel];
             }   
         }
 
@@ -37,13 +38,12 @@ namespace dmg.Domain
         {
             HighColor = highColor;
             LowColor = lowColor;
-            StainLevel = stainLevel;
             AgeThresholds = new Dictionary<int,int>();
             AgeThresholds.Add(3, 5);
             AgeThresholds.Add(2, 5);
             AgeThresholds.Add(1, 10);
             AgeThresholds.Add(0, 20);
-            TurnsUntilDecay = AgeThresholds[StainLevel];
+            StainLevel = stainLevel;
         }
 
         public ConsoleColor ResultantBackgroundColor(ConsoleColor defaultColor)

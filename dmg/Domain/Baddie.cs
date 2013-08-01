@@ -84,13 +84,12 @@ namespace dmg.Domain
             int yDirectionSign = Math.Sign(YPos - fromY);
 
             map.StainTile(XPos, YPos, new RedStain(3)); // Baddie location
-            map.StainBackground(XPos + xDirectionSign, YPos + yDirectionSign, ConsoleColor.DarkRed); //Right next
-            map.StainForeground(XPos + xDirectionSign, YPos + yDirectionSign, ConsoleColor.Red); //Right next foreground
-            map.StainForeground(XPos + 2 * xDirectionSign, YPos + 2 * yDirectionSign, ConsoleColor.DarkRed); //Right next next
-            map.StainBackground(XPos + xDirectionSign + yDirectionSign, YPos + yDirectionSign + xDirectionSign, ConsoleColor.DarkRed); //one side
-            map.StainBackground(XPos + xDirectionSign - yDirectionSign, YPos + yDirectionSign - xDirectionSign, ConsoleColor.DarkRed); //other side
-            map.StainForeground(XPos + 2 * xDirectionSign + yDirectionSign, YPos + 2 * yDirectionSign + xDirectionSign, ConsoleColor.DarkRed); //2 out, one side
-            map.StainForeground(XPos + 2 * xDirectionSign - yDirectionSign, YPos + 2 * yDirectionSign - xDirectionSign, ConsoleColor.DarkRed); //2 out, other side 
+            map.StainTile(XPos + xDirectionSign, YPos + yDirectionSign, new RedStain(2)); //Right next
+            map.StainTile(XPos + 2 * xDirectionSign, YPos + 2 * yDirectionSign, new RedStain(0)); //two out
+            map.StainTile(XPos + xDirectionSign + yDirectionSign, YPos + yDirectionSign + xDirectionSign,new RedStain(1)); //one side
+            map.StainTile(XPos + xDirectionSign - yDirectionSign, YPos + yDirectionSign - xDirectionSign, new RedStain(1)); //other side
+            map.StainTile(XPos + 2 * xDirectionSign + yDirectionSign, YPos + 2 * yDirectionSign + xDirectionSign, new RedStain(0)); //2 out, one side
+            map.StainTile(XPos + 2 * xDirectionSign - yDirectionSign, YPos + 2 * yDirectionSign - xDirectionSign,new RedStain(0)); //2 out, other side 
 
             Alive = false;
         }

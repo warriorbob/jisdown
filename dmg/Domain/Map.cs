@@ -45,18 +45,6 @@ namespace dmg.Domain
             }
         }
 
-        public void StainBackground(int x, int y, ConsoleColor color)
-        {
-            if (x >= 0 && x < Width && y >= 0 && y < Height)
-                Grid[x, y].BackgroundColor = color;
-        }
-
-        public void StainForeground(int x, int y, ConsoleColor color)
-        {
-            if (x >= 0 && x < Width && y >= 0 && y < Height)
-                Grid[x, y].ForegroundColor = color;
-        }
-
         public void StainTile(int x, int y, TileStain ts)
         {
             if (x >= 0 && x < Width && y >= 0 && y < Height)

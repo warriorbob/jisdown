@@ -1,24 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!--This file represents the results of running a test suite-->
-<test-results name="C:\Users\dhampton\Desktop\Code\dmg\UnitTests\UnitTests.csproj" total="6" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2013-08-01" time="11:18:13">
+<test-results name="C:\Users\dhampton\Desktop\Code\dmg\UnitTests\UnitTests.csproj" total="6" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2013-08-01" time="15:31:05">
   <environment nunit-version="2.6.2.12296" clr-version="2.0.50727.5466" os-version="Microsoft Windows NT 6.1.7601 Service Pack 1" platform="Win32NT" cwd="C:\Users\dhampton\Desktop\Code\dmg\UnitTests" machine-name="ASH09352" user="dhampton" user-domain="DOMAINCATPA" />
   <culture-info current-culture="en-US" current-uiculture="en-US" />
-  <test-suite type="Project" name="C:\Users\dhampton\Desktop\Code\dmg\UnitTests\UnitTests.csproj" executed="True" result="Success" success="True" time="0.093" asserts="0">
+  <test-suite type="Project" name="C:\Users\dhampton\Desktop\Code\dmg\UnitTests\UnitTests.csproj" executed="True" result="Success" success="True" time="0.097" asserts="0">
     <results>
-      <test-suite type="Assembly" name="C:\Users\dhampton\Desktop\Code\dmg\UnitTests\bin\Debug\UnitTests.dll" executed="True" result="Success" success="True" time="0.075" asserts="0">
+      <test-suite type="Assembly" name="C:\Users\dhampton\Desktop\Code\dmg\UnitTests\bin\Debug\UnitTests.dll" executed="True" result="Success" success="True" time="0.079" asserts="0">
         <results>
-          <test-suite type="Namespace" name="UnitTests" executed="True" result="Success" success="True" time="0.075" asserts="0">
+          <test-suite type="Namespace" name="UnitTests" executed="True" result="Success" success="True" time="0.079" asserts="0">
             <results>
-              <test-suite type="TestFixture" name="RedStainTests" executed="True" result="Success" success="True" time="0.062" asserts="0">
+              <test-suite type="TestFixture" name="RedStainTests" executed="True" result="Success" success="True" time="0.063" asserts="0">
                 <results>
-                  <test-case name="UnitTests.RedStainTests.RedStainConstructs" executed="True" result="Success" success="True" time="0.049" asserts="3" />
+                  <test-case name="UnitTests.RedStainTests.RedStainConstructs" executed="True" result="Success" success="True" time="0.051" asserts="3" />
                 </results>
               </test-suite>
-              <test-suite type="TestFixture" name="TileStainTests" executed="True" result="Success" success="True" time="0.010" asserts="0">
+              <test-suite type="TestFixture" name="TileStainTests" executed="True" result="Success" success="True" time="0.011" asserts="0">
                 <results>
                   <test-case name="UnitTests.TileStainTests.ChangingLevelResetsTurnsUntilDecay" executed="True" result="Success" success="True" time="0.001" asserts="3" />
-                  <test-case name="UnitTests.TileStainTests.InitTurnsUntilDecay" executed="True" result="Success" success="True" time="0.001" asserts="1" />
-                  <test-case name="UnitTests.TileStainTests.StainLevelConstrainsHigh" executed="True" result="Success" success="True" time="0.001" asserts="2" />
+                  <test-case name="UnitTests.TileStainTests.InitTurnsUntilDecay" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                  <test-case name="UnitTests.TileStainTests.StainLevelConstrainsHigh" executed="True" result="Success" success="True" time="0.000" asserts="2" />
                   <test-case name="UnitTests.TileStainTests.StainLevelConstrainsLow" executed="True" result="Success" success="True" time="0.000" asserts="2" />
                   <test-case name="UnitTests.TileStainTests.TileStainConstructs" executed="True" result="Success" success="True" time="0.001" asserts="3" />
                 </results>

@@ -17,7 +17,7 @@ namespace UnitTests
             RedStain rs = new RedStain(3);
             Assert.AreEqual(rs.HighColor, ConsoleColor.Red);
             Assert.AreEqual(rs.LowColor, ConsoleColor.DarkRed);
-            Assert.AreEqual(rs.TurnsUntilDecay, 5);
+            Assert.AreEqual(rs.TurnsUntilDecay, rs.AgeThresholds[3]);
         }
     }
 }

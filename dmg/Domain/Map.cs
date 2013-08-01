@@ -50,5 +50,23 @@ namespace dmg.Domain
             if (x >= 0 && x < Width && y >= 0 && y < Height)
                 Grid[x, y].AddStain(ts);
         }
+
+        public void AgeStains()
+        {
+            for (int w = 0; w < Width; w++)
+            {
+                for (int h = 0; h < Height; h++)
+                {
+                    if (Grid[w, h].Stain != null)
+                    {
+                        Grid[w, h].Stain.AgeStain(1);
+                        if (Grid[w, h].Stain.Alive == false)
+                        {
+                            Grid[w, h].Stain = null;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

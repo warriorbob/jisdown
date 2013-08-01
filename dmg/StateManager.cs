@@ -41,6 +41,15 @@ namespace dmg
             CleanBaddies();
             SpawnBaddies(width, height);
             EatBrains();
+            AgeMapStains(map);
+        }
+
+        public void AgeMapStains(Map map)
+        {
+            if (InterruptEvents.Count > 0)
+                return;
+
+            map.AgeStains();
         }
 
         private void SpawnBaddies(int width, int height)

@@ -44,18 +44,18 @@ namespace UnitTests
         public void InitTurnsUntilDecay()
         {
             TileStain ts = new TileStain(ConsoleColor.Red, ConsoleColor.DarkRed, 1);
-            Assert.AreEqual(ts.TurnsUntilDecay, 10);
+            Assert.AreEqual(ts.TurnsUntilDecay, ts.AgeThresholds[1]);
         }
 
         [Test]
         public void ChangingLevelResetsTurnsUntilDecay()
         {
             TileStain ts = new TileStain(ConsoleColor.Red, ConsoleColor.DarkRed, 1);
-            Assert.AreEqual(ts.TurnsUntilDecay, 10);
+            Assert.AreEqual(ts.TurnsUntilDecay, ts.AgeThresholds[1]);
             ts.StainLevel = 0;
-            Assert.AreEqual(ts.TurnsUntilDecay, 20);
+            Assert.AreEqual(ts.TurnsUntilDecay, ts.AgeThresholds[0]);
             ts.StainLevel = 5;
-            Assert.AreEqual(ts.TurnsUntilDecay, 5);
+            Assert.AreEqual(ts.TurnsUntilDecay, ts.AgeThresholds[3]);
         }
     }
 }

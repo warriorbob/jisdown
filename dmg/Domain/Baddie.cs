@@ -78,7 +78,7 @@ namespace dmg.Domain
         }
 
         //Blarg!!
-        public virtual void Blarg(int fromX, int fromY, ref Map map)
+        public virtual void Blarg(int fromX, int fromY, Map map)
         {
             int xDirectionSign = Math.Sign(XPos - fromX);
             int yDirectionSign = Math.Sign(YPos - fromY);

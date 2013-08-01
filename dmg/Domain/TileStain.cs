@@ -40,8 +40,8 @@ namespace dmg.Domain
             HighColor = highColor;
             LowColor = lowColor;
             AgeThresholds = new Dictionary<int,int>();
-            AgeThresholds.Add(3, 25);
-            AgeThresholds.Add(2, 42);
+            AgeThresholds.Add(3, 15);
+            AgeThresholds.Add(2, 32);
             AgeThresholds.Add(1, 64);
             AgeThresholds.Add(0, 90);
             StainLevel = stainLevel;

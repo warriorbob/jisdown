@@ -103,7 +103,7 @@ namespace dmg
             if (xDir != 0 || yDir != 0)
             {
                 Shots.Add(new Shot(Dude.XPos, Dude.YPos, xDir, yDir));
-                InterruptEvents.Enqueue(new ShotInterrupt(width, height));
+                InterruptEvents.Enqueue(new ShotInterrupt(width, height, 20));
             }
         }
 

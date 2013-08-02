@@ -12,11 +12,13 @@ namespace dmg.Interrupt
     {
         public int constraintWidth { get; set; }
         public int constraintHeight { get; set; }
+        private int threadSleepDuration { get; set; }
 
-        public ShotInterrupt(int width, int height)
+        public ShotInterrupt(int width, int height, int sleeptime)
         {
             constraintWidth = width;
             constraintHeight = height;
+            threadSleepDuration = sleeptime;
         }
 
         public void DoStuff(Queue<IInterruptEvent> queue, StateManager state, ref Map map)
@@ -56,7 +58,7 @@ namespace dmg.Interrupt
             //Queue up another interrupt for the next frame of animation
             if (state.Shots.Count > 0)
             {
-                Thread.Sleep(20);
+                Thread.Sleep(threadSleepDuration);
                 queue.Enqueue(this);
             }
             else    //This is kind of a hack
